@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MyPractice.Yoga</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-page="/Index">MPY</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Index">Home</a>
+                            </li>
+                            @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "instructor".ToLower()))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-page="/Instructor/Upload/Index">Upload Content</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-page="/Instructor/Content">List Content</a>
+                                </li>
+                            }
+                        </ul>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "admin".ToLower()))
+                            {
+                                <a class="nav-link text-dark" asp-page="/Admin/ProfileManagement">Profile Management</a>
+                            }
+                            <form asp-page="/Account/Logout" class="form-inline">
+                                <button class="btn btn-link text-dark">Sign Out</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a class="nav-link text-dark" asp-page="/Account/Login">Sign In</a>
+                        }
+                    </div>
+
+                </div>
+            </nav>
+        }
+        else
+        {
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-page="/Index">MPY</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse">
+                        <ul class="navbar-nav flex-grow-1">
+                            @*<li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Index">Home</a>
+                            </li>*@
+                        </ul>
+                        <a class="nav-link text-dark" asp-page="/Account/Login">Sign In</a>
+
+                    </div>
+
+                </div>
+            </nav>
+        }
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <partial name="_StatusMessage" />
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2019 - HAS.MyPractice.Web - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
