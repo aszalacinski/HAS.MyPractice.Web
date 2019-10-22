@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
+    <mini-profiler />
     <header>
         @if (User.Identity.IsAuthenticated)
         {
@@ -64,8 +65,8 @@
                     <div class="navbar-collapse collapse">
                         <ul class="navbar-nav flex-grow-1">
                             @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Index">Home</a>
-                            </li>*@
+                                    <a class="nav-link text-dark" asp-page="/Index">Home</a>
+                                </li>*@
                         </ul>
                         <a class="nav-link text-dark" asp-page="/Account/Login">Sign In</a>
 

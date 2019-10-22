@@ -1,3 +1,4 @@
+using AutoMapper;
 using HAS.MyPractice.ApplicationServices.Alerts;
 using HAS.MyPractice.ApplicationServices.IdentityServer;
 using HAS.MyPractice.Library;
@@ -5,6 +6,7 @@ using HAS.MyPractice.Media;
 using HAS.MyPractice.Profile;
 using HAS.MyPractice.Tribe;
 using HAS.MyPractice.UseCase;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using FluentValidation.AspNetCore;
 
 namespace HAS.MyPractice.Web
 {
@@ -44,11 +47,12 @@ namespace HAS.MyPractice.Web
             if (Environment.IsDevelopment())
             {
                 IdentityModelEventSource.ShowPII = true;
+                services.AddMiniProfiler();
             }
-
+            services.AddAutoMapper(typeof(Startup));
+            services.AddMediatR(typeof(Startup));
 
             services.AddHttpClient();
-
 
             services.AddHttpClient<ILibraryService, LibraryService>(client =>
             {
@@ -99,12 +103,13 @@ namespace HAS.MyPractice.Web
             {
                 options.Conventions.AuthorizeFolder("/Admin", "admin");
                 options.Conventions.AuthorizeFolder("/Upload", "instructor");
-            });
+            }).AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<Startup>(); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiniProfiler();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
