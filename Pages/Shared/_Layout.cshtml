@@ -6,72 +6,122 @@
     <title>@ViewData["Title"] - MyPractice.Yoga</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    
 </head>
 <body>
     <mini-profiler />
     <header>
         @if (User.Identity.IsAuthenticated)
         {
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <!-- Web Nav -->
+            <nav class="navbar navbar-expand-lg navbar-light mb-3 d-none d-md-flex d-xl-flex">
                 <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-page="/Index">MPY</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse">
+                    <a class="navbar-brand" asp-page="/Index">MPY</a>
+                    <div class="navbar-collapse collapse justify-content-end">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Index">Home</a>
+                                <a class="nav-link text-dark" asp-page="/Student/Dashboard">Home</a>
                             </li>
-                            @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "instructor".ToLower()))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Instructor/Upload/Index">Upload Content</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Instructor/Content">List Content</a>
-                                </li>
-                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Student/Library">Library</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Student/Profile">Profile</a>
+                            </li>
                         </ul>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "admin".ToLower()))
-                            {
-                                <a class="nav-link text-dark" asp-page="/Admin/ProfileManagement">Profile Management</a>
-                            }
-                            <form asp-page="/Account/Logout" class="form-inline">
-                                <button class="btn btn-link text-dark">Sign Out</button>
-                            </form>
-                        }
-                        else
-                        {
-                            <a class="nav-link text-dark" asp-page="/Account/Login">Sign In</a>
-                        }
-                    </div>
 
+                        @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "instructor".ToLower()))
+                        {
+                            <ul class="navbar-nav flex-grow-1 justify-content-end">
+                                <li class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
+                                        Instructor
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a asp-page="/Instructor/AudioUpload" class="dropdown-item">Upload Audio</a>
+                                        <a asp-page="/Instructor/ContentList" class="dropdown-item">List Content</a>
+                                    </div>
+                                </li>
+                                @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "admin".ToLower()))
+                                {
+                                    <li class="nav-item dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">Admin</a>
+                                        <div class="dropdown-menu">
+                                            <a asp-page="/Admin/ManageProfiles" class="dropdown-item">Manage Profiles</a>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        <a asp-page="/Help" class="nav-link text-dark">Help</a>
+                        <form asp-page="/Account/Logout" class="form-inline">
+                            <button class="btn btn-link text-dark">Sign Out</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Mobile Nav -->
+            <nav class="navbar navbar-expand-lg navbar-light fixed-bottom d-block d-sm-none" style="background-color: rgba(235,235,235,1);">
+                <div class="navbar-nav">
+                    <ul class="nav nav-fill text-dark">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Student/Dashboard"><i class="fas fa-home fa-lg"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Student/Library"><i class="fas fa-list-ul fa-lg"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Student/Profile"><i class="fas fa-user fa-lg"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-page="/Help" class="nav-link text-dark"><i class="fas fa-question fa-lg"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <form asp-page="/Account/Logout" class="form-inline">
+                                <button class="btn btn-link text-dark"><i class="fas fa-sign-out-alt fa-lg"></i></button>
+                            </form>
+                        </li>
+                    </ul>
                 </div>
             </nav>
         }
         else
         {
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <!-- Web Nav -->
+            <nav class="navbar navbar-expand-lg navbar-light mb-3 d-none d-md-flex d-xl-flex">
                 <div class="container">
                     <a class="navbar-brand" asp-area="" asp-page="/Index">MPY</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse">
+                    <div class="navbar-collapse">
                         <ul class="navbar-nav flex-grow-1">
-                            @*<li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Index">Home</a>
-                                </li>*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-page="/Help" class="nav-link text-dark">Help</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Account/Login">Sign In</a>
+                            </li>
                         </ul>
-                        <a class="nav-link text-dark" asp-page="/Account/Login">Sign In</a>
-
                     </div>
-
+                </div>
+            </nav>
+            <!-- Mobile Nav -->
+            <nav class="navbar navbar-expand-lg navbar-light fixed-bottom d-block d-sm-none" style="background-color: rgba(235,235,235,1);">
+                <div class="navbar-nav">
+                    <ul class="nav nav-fill text-dark">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Index"><i class="fas fa-home fa-lg"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-page="/Help" class="nav-link text-dark"><i class="fas fa-question fa-lg"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-page="/Account/Login" class="nav-link text-dark"><i class="fas fa-sign-in-alt fa-lg"></i></a>
+                        </li>
+                    </ul>
                 </div>
             </nav>
         }
@@ -83,7 +133,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted d-none d-md-flex d-xl-flex">
         <div class="container">
             &copy; 2019 - HAS.MyPractice.Web - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>

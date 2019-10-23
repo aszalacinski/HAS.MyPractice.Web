@@ -4,13 +4,16 @@
     ViewData["Title"] = "My Practice";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to My Practice</h1>
-    <p>Beta v1</p>
+<div class="container">
+    <div class="row text-center" style="height: 90vh">
+        <div class="col my-auto">
+            <h1 class="display-4">Welcome to My Practice</h1>
+            <p>Beta v1</p>
+        </div>
+    </div>
 </div>
 
-
-@using Microsoft.AspNetCore.Authentication
+@*@using Microsoft.AspNetCore.Authentication
 
 @if (User.Identity.IsAuthenticated)
 {
@@ -46,4 +49,4 @@
             <dd>@prop.Value</dd>
         }
     </dl>
-}
+}*@
