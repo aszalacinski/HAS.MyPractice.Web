@@ -30,4 +30,8 @@
     <ProjectReference Include="..\..\dotnet\HAS.MyPractice.SDK\HAS.MyPractice.SDK.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>

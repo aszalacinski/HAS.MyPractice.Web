@@ -3,6 +3,64 @@
 @{
     ViewData["Title"] = "My Practice";
 }
+<div class="container">
+    <div class="row">
+        <section class="col-12 col-md-12 col-lg-9 mx-auto" style="margin-top: 10px">
+            <div class="section-heading text-center mx-auto" style="margin-bottom:25px;">
+                <h3>View Classes</h3>
+                <p class="text-muted">View all classes available to you</p>
+            </div>
+        </section>
+    </div>
 
-<h1>Library</h1>
+    <div class="row no-gutters">
+        @foreach (var thumb in Model.Thumbnails.Media)
+        {
+            var queryData = new Dictionary<string, string>
+            {
+                {"d", thumb.Id }
+            };
 
+            <div id="mediaThumbnails" class="col-6 col-md-3 col-lg-3 mb-3 pr-1">
+                <a asp-page="/Student/Player" asp-all-route-data="queryData">
+                    <div style="cursor: pointer">
+                        <div class="row pl-1">
+                            <div class="col-12">
+                                <span class="badge badge-light length-overlay mt-2">@thumb.Duration</span>
+                                <img src="~/images/fpo.png" class="rounded-lg img-fluid" style="width: 100%;">
+                            </div>
+                            <div class="col text-center">@thumb.Title</div>
+                        </div>
+                        <div class="row pl-1">
+                            <!-- <div class="col-2">5.5</div> -->
+                            <div class="col text-center">@thumb.Author</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+    <div class="row">
+        &nbsp;
+        <br><br>
+        &nbsp;
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        #mediaThumbnails .length-overlay {
+            position: absolute;
+            top: 83px;
+            left: 25px;
+        }
+        #mediaThumbnails a,
+        #mediaThumbnails a:link,
+        #mediaThumbnails a:visited,
+        #mediaThumbnails a:hover {
+            color: #343a40 !important;
+            font-weight: 600;
+            text-decoration: none;
+        }
+    </style>
+}
