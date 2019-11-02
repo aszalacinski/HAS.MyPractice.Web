@@ -1,11 +1,5 @@
 using AutoMapper;
-using HAS.MyPractice.ApplicationServices.Alerts;
-using HAS.MyPractice.ApplicationServices.IdentityServer;
-using HAS.MyPractice.Library;
-using HAS.MyPractice.Media;
-using HAS.MyPractice.Profile;
-using HAS.MyPractice.Tribe;
-using HAS.MyPractice.UseCase;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,7 +9,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
 using System;
 using System.IdentityModel.Tokens.Jwt;
-using FluentValidation.AspNetCore;
 
 namespace HAS.MyPractice.Web
 {
@@ -53,30 +46,30 @@ namespace HAS.MyPractice.Web
             services.AddMediatR(typeof(Startup));
 
             services.AddHttpClient();
-
-            services.AddHttpClient<ILibraryService, LibraryService>(client =>
+            
+            services.AddHttpClient(HASClientFactories.LIBRARY, client =>
             {
-                client.BaseAddress = new Uri(Configuration.GetSection("MPY:API.Library:Authority").Value);
+                client.BaseAddress = new Uri(Configuration["MPY:API.Library:Authority"]);
             });
 
-            services.AddHttpClient<IMediaService, MediaService>(client =>
+            services.AddHttpClient(HASClientFactories.MEDIA, client =>
             {
-                client.BaseAddress = new Uri(Configuration.GetSection("MPY:API.Media:Authority").Value);
+                client.BaseAddress = new Uri(Configuration["MPY:API.Media:Authority"]);
             });
 
-            services.AddHttpClient<IProfileService, ProfileService>(client =>
+            services.AddHttpClient(HASClientFactories.PROFILE, client =>
             {
-                client.BaseAddress = new Uri(Configuration.GetSection("MPY:API.Profile:Authority").Value);
+                client.BaseAddress = new Uri(Configuration["MPY:API.Profile:Authority"]);
             });
 
-            services.AddHttpClient<ITribeService, TribeService>(client =>
+            services.AddHttpClient(HASClientFactories.TRIBE, client =>
             {
-                client.BaseAddress = new Uri(Configuration.GetSection("MPY:API.Tribe:Authority").Value);
+                client.BaseAddress = new Uri(Configuration["MPY:API.Tribe:Authority"]);
             });
 
-            services.AddHttpClient<IIdentityServerService, IdentityServerService>(client =>
+            services.AddHttpClient(HASClientFactories.IDENTITY, client =>
             {
-                client.BaseAddress = new Uri(Configuration.GetSection("MPY:IdentityServer:Authority").Value);
+                client.BaseAddress = new Uri(Configuration["MPY:IdentityServer:Authority"]);
             });
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
@@ -92,17 +85,16 @@ namespace HAS.MyPractice.Web
             });
             
             services.AddHttpContextAccessor();
-            services.AddSingleton<IDataProtectionService, DataProtectionService>();
-            services.AddTransient<IAlertService, AlertService>();
-            services.AddTransient<Convert_Student_Account_to_Instructor_Account>();
-            services.AddTransient<Rollback_Student_Account_to_Instructor_Account>();
-            services.AddTransient<Move_Media_To_Instructor_Default_Folder>();
-            services.AddTransient<List_All_Media_In_Library>();
+            //services.AddTransient<IAlertService, AlertService>();
+            //services.AddTransient<Convert_Student_Account_to_Instructor_Account>();
+            //services.AddTransient<Rollback_Student_Account_to_Instructor_Account>();
+            //services.AddTransient<Move_Media_To_Instructor_Default_Folder>();
+            //services.AddTransient<List_All_Media_In_Library>();
 
             services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizeFolder("/Admin", "admin");
-                options.Conventions.AuthorizeFolder("/Upload", "instructor");
+                options.Conventions.AuthorizeFolder("/Instructor", "instructor");
             }).AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<Startup>(); });
         }
 

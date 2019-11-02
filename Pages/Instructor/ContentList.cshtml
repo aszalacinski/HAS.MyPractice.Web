@@ -4,5 +4,87 @@
     ViewData["Title"] = "My Practice";
 }
 
+<div class="row">
+    <div class="col">
+        <h3>List of Current Content Upload</h3>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="card">
+        <div class="card-header">
+            All Content
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" colspan="3">Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var file in Model.Media)
+                    {
+                        <tr>
+                            <th scope="row">@file.Id</th>
+                            <td>@file.Status</td>
+                            <td>@file.Title</td>
+                            <td>
+                                @{
+                                    var d = new Dictionary<string, string>
+                                                        {
+                                        { "c", file.Id }
+                                    };
+                                }
 
-<h1>Content List</h1>
+                                <a asp-page="/Instructor/ContentEdit" asp-all-route-data="d" class="btn btn-primary">Edit</a>
+                            </td>
+                            <td>
+                                <form method="post">
+                                    <input type="hidden" asp-for="@file.InstructorId" name="profileId" />
+                                    <input type="hidden" asp-for="@file.Id" name="fileId" />
+                                    <button type="submit" class="btn btn-primary" asp-page-handler="Move">Move</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row">
+
+    <div class="card">
+        <div class="card-header">
+            Default Library
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" colspan="2">Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var file in Model.DefaultMedia)
+                    {
+                        <tr>
+                            <th scope="row">@file.Id</th>
+                            <td>@file.Status</td>
+                            <td>@file.Title</td>
+                            <td>
+                                ???
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

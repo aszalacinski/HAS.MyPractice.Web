@@ -9,9 +9,11 @@ namespace HAS.MyPractice.Web.Pages.Instructor
 {
     public class EditModel : PageModel
     {
-        public void OnGet()
-        {
+        public string MediaId { get; set; }
 
+        public void OnGet(string c)
+        {
+            MediaId = c;
         }
     }
 }

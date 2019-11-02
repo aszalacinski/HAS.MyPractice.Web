@@ -1,29 +1,25 @@
-﻿using HAS.MyPractice.Profile;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
+using static HAS.MyPractice.DataProtection.DataProtectionDecrypt;
 
 namespace HAS.MyPractice.Web.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly IConfiguration _configuration;
         private readonly string _cookieName;
-        private readonly IProfileService _profileService;
-        private readonly IDataProtectionService _dataProtectionService;
+        private readonly IMediator _mediator;
 
-        public IndexModel(IConfiguration configuration, IProfileService profileService, IDataProtectionService dataProtectionService)
+        public IndexModel(IConfiguration configuration, IMediator mediator)
         {
-            _configuration = configuration;
-            _cookieName = _configuration.GetSection("MPY:Cookies:ProfileMiddleware:Name").Value;
-            _profileService = profileService;
-            _dataProtectionService = dataProtectionService;
+            _cookieName = configuration["MPY:Cookies:ProfileMiddleware:Name"];
+            _mediator = mediator;
         }
 
         public string Token { get; set; }
         public string Id { get; set; }
-
         public string CookieOutput { get; set; }
 
         public async Task OnGet()
@@ -34,7 +30,7 @@ namespace HAS.MyPractice.Web.Pages
 
             if (cookie != null)
             {
-                CookieOutput = _dataProtectionService.DecryptProfileCookie(cookie);
+                CookieOutput = await _mediator.Send(new DataProtectDecryptCommand(cookie));
             }
 
         }

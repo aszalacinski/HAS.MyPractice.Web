@@ -1,0 +1,72 @@
+﻿@page
+@model HAS.MyPractice.Web.Pages.Instructor.UploadAudio
+@{
+    ViewData["Title"] = "My Practice";
+}
+
+<div class="row">
+    <div class="col">
+        <form method="post" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Content Upload</h3>
+                    <small>Fill out the details below and select a file to upload to being managing your content.</small>
+                </div>
+                <div class="card-body">
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Data.FirstName">Author First Name</label>
+                                <input asp-for="Data.FirstName" placeholder="Author First Name" class="form-control" />
+                                <span asp-validation-for="Data.FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Data.LastName">Author Last Name</label>
+                                <input asp-for="Data.LastName" placeholder="Author Last Name" class="form-control" />
+                                <span asp-validation-for="Data.LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label asp-for="Data.Title">Content Title</label>
+                                <input asp-for="Data.Title" placeholder="Content Title" class="form-control" />
+                                <span asp-validation-for="Data.Title" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label asp-for="Data.DurationInMinutes">Duration (in minutes)</label>
+                                <input asp-for="Data.DurationInMinutes" placeholder="Duration" class="form-control" />
+                                <span asp-validation-for="Data.DurationInMinutes" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="File">Choose a file</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="File">Upload</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input asp-for="Data.File" type="file" class="custom-file-input">
+                                    <label asp-for="Data.File" class="custom-file-label">Choose a file</label>
+                                    <span asp-validation-for="Data.File" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <input type="hidden" asp-for="Data.InstructorId" />
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

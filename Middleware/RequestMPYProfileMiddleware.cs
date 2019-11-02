@@ -1,11 +1,13 @@
-﻿using HAS.MyPractice.ApplicationServices.IdentityServer;
-using HAS.MyPractice.Profile;
+﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using System;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
+using static HAS.MyPractice.DataProtection.DataProtectionEncrypt;
+using static HAS.MyPractice.GetProfileByUserId;
+using static HAS.MyPractice.IdentityServer.GetAccessToken;
 
 namespace HAS.MyPractice
 {
@@ -18,13 +20,13 @@ namespace HAS.MyPractice
             _next = next;
         }
 
-        public async Task InvokeAsync(HttpContext context, IConfiguration configuration, IIdentityServerService idservice, IProfileService profileService, IDataProtectionService dataProtectionService)
+        public async Task InvokeAsync(HttpContext context, IConfiguration configuration, IMediator mediator)
         {
-            string cookieName = configuration.GetSection("MPY:Cookies:ProfileMiddleware:Name").Value;
+            string cookieName = configuration["MPY:Cookies:ProfileMiddleware:Name"];
 
-            var clientId = configuration.GetSection("MPY:IdentityServer:ProfileMiddleware:ClientId").Value;
-            var clientSecret = configuration.GetSection("MPY:IdentityServer:ProfileMiddleware:ClientSecret").Value;
-            var scopes = configuration.GetSection("MPY:IdentityServer:ProfileMiddleware:Scopes").Value;
+            var clientId = configuration["MPY:IdentityServer:ProfileMiddleware:ClientId"];
+            var clientSecret = configuration["MPY:IdentityServer:ProfileMiddleware:ClientSecret"];
+            var scopes = configuration["MPY:IdentityServer:ProfileMiddleware:Scopes"];
 
             // check if user is logged in... 
             if (context.User.Identity.IsAuthenticated)
@@ -34,20 +36,23 @@ namespace HAS.MyPractice
                     try
                     {
                         // get token
-                        var token = await idservice.GetAccessToken(clientId, clientSecret, scopes);
+                        //var token = await idservice.GetAccessToken(clientId, clientSecret, scopes);
+                        var token = await mediator.Send(new GetAccessTokenCommand(clientId, clientSecret, scopes));
 
                         // get the userid from the User sub claim
                         string userId = context.User.Claims.Where(x => x.Type.Equals("sub")).FirstOrDefault().Value;
 
-                        var profile = await profileService.GetProfileByUserId(userId, token);
+                        //var profile = await profileService.GetProfileByUserId(userId, token);
+                        var profile = await mediator.Send(new GetProfileByUserIdQuery(userId, token));
 
                         // save profile details to cookie
                         // we are deserializing and then serializing JUST to make sure json is proper
 
-                        var json = JsonConvert.SerializeObject(profile);
+                        var json = JsonSerializer.Serialize(profile, DefaultJsonSettings.Settings);
 
                         // encrypt the profile object
-                        var mpyProfile = dataProtectionService.EncryptProfileCookie(json);
+                        //var mpyProfile = dataProtectionService.EncryptProfileCookie(json);
+                        var mpyProfile = await mediator.Send(new DataProtectionEncryptCommand(json));
 
                         // create the cookie.
                         context.Response.Cookies.Append(cookieName, mpyProfile);
