@@ -19,19 +19,19 @@ namespace HAS.MyPractice
             })
                 .AddCookie("Cookies", options =>
                 {
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-                    options.SlidingExpiration = true;
-                    options.Cookie.Name = "mpy.contentmgmt.autorefresh";
+                    //options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                    //options.SlidingExpiration = true;
+                    //options.Cookie.Name = "mpy.web.autorefresh";
                 })
                 .AddAutomaticTokenManagement()
                 .AddOpenIdConnect("oidc", options =>
                 {
-                    var clientId = configuration.GetSection("MPY:IdentityServer:ContentManagementWebApp:ClientId").Value;
+                    var clientId = configuration.GetSection("MPY:IdentityServer:WebApp:ClientId").Value;
                     if (string.IsNullOrEmpty(clientId))
                     {
                         throw new ArgumentNullException("Client Id must be specified");
                     }
-                    var clientSecret = configuration.GetSection("MPY:IdentityServer:ContentManagementWebApp:ClientSecret").Value;
+                    var clientSecret = configuration.GetSection("MPY:IdentityServer:WebApp:ClientSecret").Value;
                     if (string.IsNullOrEmpty(clientSecret))
                     {
                         throw new ArgumentNullException("Client Secret must be specified");

@@ -1,6 +1,8 @@
 ﻿using HAS.MyPractice.Web.Model;
 using IdentityModel.Client;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
@@ -15,24 +17,33 @@ namespace HAS.MyPractice
             public string UserId { get; private set; }
             public string AccessToken { get; private set; }
 
-            public GetProfileByUserIdQuery(string userId, string accessToken)
+            public GetProfileByUserIdQuery(string userId, string accessToken = null)
             {
                 UserId = userId;
                 AccessToken = accessToken;
             }
+
+            public void SetAccessToken(string accessToken) => AccessToken = accessToken;
         }
 
         public class GetProfileByUserIdQueryHandler : IRequestHandler<GetProfileByUserIdQuery, Profile>
         {
+            private readonly IHttpContextAccessor _httpContextAcessor;
             private readonly HttpClient _httpClient;
 
-            public GetProfileByUserIdQueryHandler(IHttpClientFactory httpClientFactory)
+            public GetProfileByUserIdQueryHandler(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
             {
                 _httpClient = httpClientFactory.CreateClient(HASClientFactories.PROFILE);
+                _httpContextAcessor = httpContextAccessor;
             }
 
             public async Task<Profile> Handle(GetProfileByUserIdQuery query, CancellationToken cancellationToken)
             {
+                if(string.IsNullOrEmpty(query.AccessToken))
+                {
+                    query.SetAccessToken(await _httpContextAcessor.HttpContext.GetTokenAsync("access_token"));
+                }
+                
                 string uri = $"by/{query.UserId}";
 
                 _httpClient.SetBearerToken(query.AccessToken);

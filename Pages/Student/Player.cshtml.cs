@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using HAS.MyPractice.Web.Model.Library;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -53,7 +52,7 @@ namespace HAS.MyPractice.Web.Pages.Student
             {
                 _mapperConfiguration = new MapperConfiguration(cfg =>
                 {
-                    cfg.CreateMap<MediaFile, GetMediaForPlayerResult>();
+                    //cfg.CreateMap<MediaFile, GetMediaForPlayerResult>();
 
                 });
             }

@@ -30,10 +30,9 @@
                                 <a class="nav-link text-dark" asp-page="/Student/Profile">Profile</a>
                             </li>
                         </ul>
-
-                        @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "instructor".ToLower()))
-                        {
-                            <ul class="navbar-nav flex-grow-1 justify-content-end">
+                        <ul class="navbar-nav flex-grow-1 justify-content-end">
+                            @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "instructor".ToLower()))
+                            {
                                 <li class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
                                         Instructor
@@ -43,22 +42,22 @@
                                         <a asp-page="/Instructor/ContentList" class="dropdown-item">List Content</a>
                                     </div>
                                 </li>
-                                @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "admin".ToLower()))
-                                {
-                                    <li class="nav-item dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">Admin</a>
-                                        <div class="dropdown-menu">
-                                            <a asp-page="/Admin/ManageProfiles" class="dropdown-item">Manage Profiles</a>
-                                        </div>
-                                    </li>
-                                }
-                            </ul>
-                        }
-                        <a asp-page="/Help" class="nav-link text-dark">Help</a>
-                        <form asp-page="/Account/Logout" class="form-inline">
-                            <button class="btn btn-link text-dark">Sign Out</button>
-                        </form>
-                    </div>
+                            }
+                            @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "admin".ToLower()))
+                            {
+                                <li class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">Admin</a>
+                                    <div class="dropdown-menu">
+                                        <a asp-page="/Admin/ManageProfiles" class="dropdown-item">Manage Profiles</a>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                            <a asp-page="/Help" class="nav-link text-dark">Help</a>
+                            <form asp-page="/Account/Logout" class="form-inline">
+                                <button class="btn btn-link text-dark">Sign Out</button>
+                            </form>
+                        </div>
                 </div>
             </nav>
 

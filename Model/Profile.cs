@@ -10,7 +10,9 @@ namespace HAS.MyPractice.Web.Model
         public string Id { get; set; }
         public DateTime LastUpdate { get; set; }
         public PersonalDetails PersonalDetails { get; set; }
-        public AppDetails AppContext { get; set; }
+        public AppDetails AppDetails { get; set; }
+
+        public bool IsInstructor() => AppDetails.AccountType.ToUpper() == "INSTRUCTOR";
     }
 
     public class PersonalDetails

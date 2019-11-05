@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using HAS.MyPractice.Web.Model.Library;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -59,7 +58,7 @@ namespace HAS.MyPractice.Web.Pages.Student
             {
                 _mapperConfiguration = new MapperConfiguration(cfg =>
                 {
-                    cfg.CreateMap<MediaFile, GetLibraryMediaForUserResult.MediaThumbnail>();
+                    //cfg.CreateMap<MediaFile, GetLibraryMediaForUserResult.MediaThumbnail>();
 
                 });
             }
@@ -69,88 +68,88 @@ namespace HAS.MyPractice.Web.Pages.Student
 
                 var mapper = new Mapper(_mapperConfiguration);
 
-                var files = new List<MediaFile>
-                {
-                    new MediaFile
-                    {
-                        Id = "111111111111111",
-                        Author = "Aarron Szalacinski",
-                        Duration = 100,
-                        Title = "First Demo file"
-                    },
+                //var files = new List<MediaFile>
+                //{
+                //    new MediaFile
+                //    {
+                //        Id = "111111111111111",
+                //        Author = "Aarron Szalacinski",
+                //        Duration = 100,
+                //        Title = "First Demo file"
+                //    },
 
-                    new MediaFile
-                    {
-                        Id = "222222222222222",
-                        Author = "Aarron Szalacinski",
-                        Duration = 120,
-                        Title = "Second Demo file"
-                    },
+                //    new MediaFile
+                //    {
+                //        Id = "222222222222222",
+                //        Author = "Aarron Szalacinski",
+                //        Duration = 120,
+                //        Title = "Second Demo file"
+                //    },
 
-                    new MediaFile
-                    {
-                        Id = "3333333333333333",
-                        Author = "Aarron Szalacinski",
-                        Duration = 75,
-                        Title = "Third Demo file"
-                    },
+                //    new MediaFile
+                //    {
+                //        Id = "3333333333333333",
+                //        Author = "Aarron Szalacinski",
+                //        Duration = 75,
+                //        Title = "Third Demo file"
+                //    },
 
-                    new MediaFile
-                    {
-                        Id = "444444444444444",
-                        Author = "Aarron Szalacinski",
-                        Duration = 95,
-                        Title = "Fourth Demo file"
-                    },
+                //    new MediaFile
+                //    {
+                //        Id = "444444444444444",
+                //        Author = "Aarron Szalacinski",
+                //        Duration = 95,
+                //        Title = "Fourth Demo file"
+                //    },
 
-                    new MediaFile
-                    {
-                        Id = "5555555555555555",
-                        Author = "Aarron Szalacinski",
-                        Duration = 72,
-                        Title = "Fifth Demo file"
-                    },
+                //    new MediaFile
+                //    {
+                //        Id = "5555555555555555",
+                //        Author = "Aarron Szalacinski",
+                //        Duration = 72,
+                //        Title = "Fifth Demo file"
+                //    },
 
-                    new MediaFile
-                    {
-                        Id = "666666666666666",
-                        Author = "Aarron Szalacinski",
-                        Duration = 45,
-                        Title = "Sixth Demo file"
-                    },
+                //    new MediaFile
+                //    {
+                //        Id = "666666666666666",
+                //        Author = "Aarron Szalacinski",
+                //        Duration = 45,
+                //        Title = "Sixth Demo file"
+                //    },
 
-                    new MediaFile
-                    {
-                        Id = "777777777777777",
-                        Author = "Aarron Szalacinski",
-                        Duration = 33,
-                        Title = "Seventh Demo file"
-                    },
+                //    new MediaFile
+                //    {
+                //        Id = "777777777777777",
+                //        Author = "Aarron Szalacinski",
+                //        Duration = 33,
+                //        Title = "Seventh Demo file"
+                //    },
 
-                    new MediaFile
-                    {
-                        Id = "8888888888888888",
-                        Author = "Aarron Szalacinski",
-                        Duration = 15,
-                        Title = "Eigth Demo file"
-                    },
-                };
+                //    new MediaFile
+                //    {
+                //        Id = "8888888888888888",
+                //        Author = "Aarron Szalacinski",
+                //        Duration = 15,
+                //        Title = "Eigth Demo file"
+                //    },
+                //};
 
                 var result = new GetLibraryMediaForUserResult();
                 result.Media = new List<GetLibraryMediaForUserResult.MediaThumbnail>();
 
-                foreach (var file in files)
-                {
-                    var thumb = new GetLibraryMediaForUserResult.MediaThumbnail()
-                    {
-                        Id = file.Id,
-                        Author = file.Author,
-                        Duration = file.Duration,
-                        Title = file.Title
-                    };
+                //foreach (var file in files)
+                //{
+                //    var thumb = new GetLibraryMediaForUserResult.MediaThumbnail()
+                //    {
+                //        Id = file.Id,
+                //        Author = file.Author,
+                //        Duration = file.Duration,
+                //        Title = file.Title
+                //    };
 
-                    result.Media.Add(thumb);
-                }
+                //    result.Media.Add(thumb);
+                //}
 
                 return Task.FromResult(result);
             }

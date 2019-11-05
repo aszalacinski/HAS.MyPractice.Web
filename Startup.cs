@@ -1,8 +1,10 @@
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using IdentityModel.Client;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,7 +35,7 @@ namespace HAS.MyPractice.Web
 
         public IHostEnvironment Environment { get; }
         public IConfiguration Configuration { get; }
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -44,6 +46,7 @@ namespace HAS.MyPractice.Web
             }
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddHttpClient();
             
@@ -85,11 +88,15 @@ namespace HAS.MyPractice.Web
             });
             
             services.AddHttpContextAccessor();
-            //services.AddTransient<IAlertService, AlertService>();
-            //services.AddTransient<Convert_Student_Account_to_Instructor_Account>();
-            //services.AddTransient<Rollback_Student_Account_to_Instructor_Account>();
-            //services.AddTransient<Move_Media_To_Instructor_Default_Folder>();
-            //services.AddTransient<List_All_Media_In_Library>();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(120);
+                options.Cookie.Name = Configuration["MPY:Cookies:Session:Name"];
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             services.AddRazorPages(options =>
             {
@@ -116,6 +123,7 @@ namespace HAS.MyPractice.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
             app.UseCookiePolicy();
 
             app.UseRouting();
@@ -123,7 +131,7 @@ namespace HAS.MyPractice.Web
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMPYProfile();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

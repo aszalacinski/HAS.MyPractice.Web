@@ -5,5 +5,68 @@
     ViewData["Title"] = "My Practice";
 }
 
+<div class="row">
+    <div class="col">
+        <h3>Profile Management</h3>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                @{
+                    var student = new Dictionary<string, string>
+                                {
+                            {"t","student" }
+                        };
+                    var instructor = new Dictionary<string, string>
+                                {
+                            {"t","instructor" }
+                        };
+                }
+                <a asp-all-route-data="student" class="btn btn-primary">Students</a>&nbsp;<a asp-all-route-data="instructor" class="btn btn-primary">Instructors</a>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col" colspan="3">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var member in Model.Data.Members)
+                        {
+                            <tr>
+                                <th scope="row">@member.Id</th>
+                                <td>@member.PersonalDetails.Email</td>
+                                <td>
+                                    <a asp-page="/Admin/ProfileView" class="btn btn-primary">View</a>
+                                </td>
+                                <td>
+                                    @if (@member.AppDetails.AccountType.ToLower().Equals("student".ToLower()))
+                                    {
+                                        <form method="post">
+                                            <input type="hidden" asp-for="@member.Id" name="profileId" />
+                                            <button type="submit" class="btn btn-primary" asp-page-handler="ToInstructor">Change to Instructor</button>
+                                        </form>
 
-<h1>Manage Profile</h1>
+                                    }
+
+                                    @if (@member.AppDetails.AccountType.ToLower().Equals("instructor".ToLower()))
+                                    {
+                                        <form method="post">
+                                            <input type="hidden" asp-for="@member.Id" name="profileId" />
+                                            <button type="submit" class="btn btn-primary" asp-page-handler="ToStudent">Rollback to Student</button>
+                                        </form>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

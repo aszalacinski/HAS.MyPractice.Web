@@ -119,7 +119,7 @@ namespace HAS.MyPractice.Web.Pages.Instructor
 
                 try
                 {
-                    var mediaId = await _mediator.Send(new UploadAudioCommand(cmd.AccessToken, formDataContent));
+                    var mediaId = await _mediator.Send(new UploadAudioCommand(formDataContent));
 
                     if(string.IsNullOrEmpty(mediaId))
                     {

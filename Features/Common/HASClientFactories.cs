@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace HAS.MyPractice
+﻿namespace HAS.MyPractice
 {
     public static class HASClientFactories
     {

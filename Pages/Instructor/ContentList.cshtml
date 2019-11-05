@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var file in Model.Media)
+                    @foreach (var file in Model.Data.All)
                     {
                         <tr>
                             <th scope="row">@file.Id</th>
@@ -72,7 +72,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var file in Model.DefaultMedia)
+                    @foreach (var file in Model.Data.Shared)
                     {
                         <tr>
                             <th scope="row">@file.Id</th>
