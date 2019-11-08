@@ -4,7 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using static HAS.MyPractice.AddHub;
 using static HAS.MyPractice.AddLibraryToHub;
+using static HAS.MyPractice.AddStudentToTribe;
 using static HAS.MyPractice.AddStudentTribe;
+using static HAS.MyPractice.AddSubscription;
 using static HAS.MyPractice.AddTribeToLibrary;
 using static HAS.MyPractice.DeleteHub;
 using static HAS.MyPractice.DeleteLibraryFromHub;
@@ -99,7 +101,35 @@ namespace HAS.MyPractice
 
                                             if (updateLibraryDefaultTribe != null && updateLibraryDefaultTribe.DefaultTribe.Id == tribeId)
                                             {
-                                                return profile.AppDetails.AccountType.ToUpper().Equals("INSTRUCTOR"); ;
+                                                var subscribeToSelf = await _mediator.Send(new AddSubscriptionCommand(profileId, profileId));
+
+                                                if(subscribeToSelf.AppDetails.Subscriptions.Any(x => x.InstructorId == profileId))
+                                                {
+                                                    var addSelfToDefaultTribe = await _mediator.Send(new AddStudentToTribeCommand(profileId, tribeId, profileId));
+
+                                                    if(addSelfToDefaultTribe.Members.Any(x => x.Id == profileId))
+                                                    {
+                                                        return profile.AppDetails.AccountType.ToUpper().Equals("INSTRUCTOR"); ;
+                                                    }
+                                                    else
+                                                    {
+                                                        var removeTribeFromLibrary = await _mediator.Send(new DeleteTribeFromLibraryCommand(profileId, hubId, libraryId, tribeId));
+                                                        var deleteLibrary = await _mediator.Send(new DeleteLibraryFromHubCommand(profileId, hubId, libraryId));
+                                                        var deleteHub = await _mediator.Send(new DeleteHubCommand(profileId, hubId));
+                                                        var rollbackStudentToInstructor = await _mediator.Send(new UpdateProfileToStudentCommand(profileId));
+
+                                                        return false;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    var removeTribeFromLibrary = await _mediator.Send(new DeleteTribeFromLibraryCommand(profileId, hubId, libraryId, tribeId));
+                                                    var deleteLibrary = await _mediator.Send(new DeleteLibraryFromHubCommand(profileId, hubId, libraryId));
+                                                    var deleteHub = await _mediator.Send(new DeleteHubCommand(profileId, hubId));
+                                                    var rollbackStudentToInstructor = await _mediator.Send(new UpdateProfileToStudentCommand(profileId));
+
+                                                    return false;
+                                                }
                                             }
                                             else
                                             {
