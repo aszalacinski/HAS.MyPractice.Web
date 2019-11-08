@@ -7,8 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static HAS.MyPractice.AddMediaToLibrary;
 using static HAS.MyPractice.GetAllMediaByProfileId;
 using static HAS.MyPractice.GetAllMediaInDefaultLibrary;
+using static HAS.MyPractice.GetHubByProfileId;
+using static HAS.MyPractice.GetLibraryByName;
 
 namespace HAS.MyPractice.Web.Pages.Instructor
 {
@@ -26,6 +29,8 @@ namespace HAS.MyPractice.Web.Pages.Instructor
         {
             public IEnumerable<Media> All { get; set; }
             public IEnumerable<Media> Shared { get; set; }
+            public string HubId { get; set; }
+            public string LibraryId { get; set; }
 
         }
 
@@ -33,14 +38,27 @@ namespace HAS.MyPractice.Web.Pages.Instructor
         {
             Profile profile = JsonSerializer.Deserialize<Profile>(HttpContext.Session.GetString(HASSessionKeys.SessionKeyProfileName), DefaultJsonSettings.Settings);
 
+            var hub = await _mediator.Send(new GetHubByProfileIdQuery(profile.Id));
+            var defaultLib = await _mediator.Send(new GetLibraryByNameQuery(profile.Id, $"Default-{profile.Id}"));
             var getAll = await _mediator.Send(new GetAllMediaByProfileIDQuery(profile.Id));
             var getShared = await _mediator.Send(new GetAllMediaInDefaultLibraryQuery(profile.Id));
 
             Data = new QueryResult 
             {
+                HubId = hub.Id,
+                LibraryId = defaultLib.Id,
                 All = getAll,
                 Shared = getShared
             };  
+        }
+
+        public async Task<IActionResult> OnPostMoveAsync(string hubId, string libraryId, string fileId)
+        {
+            Profile profile = JsonSerializer.Deserialize<Profile>(HttpContext.Session.GetString(HASSessionKeys.SessionKeyProfileName), DefaultJsonSettings.Settings);
+
+            var moved = await _mediator.Send(new AddMediaToLibraryCommand(profile.Id, hubId, libraryId, fileId));
+
+            return RedirectToPage("ContentList");
         }
 
     }
