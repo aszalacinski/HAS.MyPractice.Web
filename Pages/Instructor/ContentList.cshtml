@@ -29,8 +29,8 @@
                     {
                         <tr>
                             <th scope="row">@file.Id</th>
-                            <td>@file.Status</td>
-                            <td>@file.Title</td>
+                            <td>@file.State.Status</td>
+                            <td>@file.ContentDetails.Title</td>
                             <td>
                                 @{
                                     var d = new Dictionary<string, string>
@@ -82,8 +82,8 @@
                     {
                         <tr>
                             <th scope="row">@file.Id</th>
-                            <td>@file.Status</td>
-                            <td>@file.Title</td>
+                            <td>@file.State.Status</td>
+                            <td>@file.ContentDetails.Title</td>
                             <td>
                                 ???
                             </td>

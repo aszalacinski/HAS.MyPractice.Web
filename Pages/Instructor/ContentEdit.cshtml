@@ -5,19 +5,63 @@
     ViewData["Title"] = "My Practice";
 }
 
-<div class="row">
-    <div class="col">
-        <h3>Content Edit</h3>
-    </div>
-</div>
-<hr />
-<div class="row">
-    <div class="card">
-        <div class="card-header">
-            Media ID# @Model.MediaId
+    <div class="row">
+        <div class="col">
+            <form method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Content Edit</h3>
+                        <small>Media ID# @Model.Data.Id</small>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mt-2">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="Data.FirstName"></label>
+                                    <input asp-for="Data.FirstName" placeholder="Author First Name" class="form-control" disabled />
+                                    <span asp-validation-for="Data.FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="Data.LastName"></label>
+                                    <input asp-for="Data.LastName" placeholder="Author Last Name" class="form-control" disabled />
+                                    <span asp-validation-for="Data.LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="form-group">
+                                    <label asp-for="Data.Title"></label>
+                                    <input asp-for="Data.Title" placeholder="Content Title" class="form-control" />
+                                    <span asp-validation-for="Data.Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label asp-for="Data.Duration"></label>
+                                    <input asp-for="Data.Duration" placeholder="Duration" class="form-control" />
+                                    <span asp-validation-for="Data.Duration" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="Data.Description"></label>
+                                    <textarea asp-for="Data.Description" class="form-control"></textarea>
+                                    <span asp-validation-for="Data.Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="hidden" asp-for="Data.ProfileId" />
+                        <input type="hidden" asp-for="Data.Id" />
+                        <button type="submit" class="btn btn-primary" asp-page-handler="Edit">Submit Changes</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="card-body">
-
-        </div>
     </div>
-</div>
