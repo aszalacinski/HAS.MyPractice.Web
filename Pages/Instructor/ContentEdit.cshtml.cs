@@ -43,14 +43,13 @@ namespace HAS.MyPractice.Web.Pages.Instructor
             public string FileType { get; set; }
             public string FileExtension { get; set; }
             public long FileSize { get; set; }
+            public string Url { get; set; }
             public string ProfileId { get; set; }
         }
 
         public async Task OnGetAsync(string c)
         {
             Profile profile = JsonSerializer.Deserialize<Profile>(HttpContext.Session.GetString(HASSessionKeys.SessionKeyProfileName));
-
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
 
             var media = await _mediator.Send(new GetMediaByIdQuery(c));
 
@@ -66,7 +65,8 @@ namespace HAS.MyPractice.Web.Pages.Instructor
                 Id = media.Id,
                 LastName = media.InstructorName.Split(' ')[1],
                 Title = media.ContentDetails.Title,
-                ProfileId = media.InstructorId
+                ProfileId = media.InstructorId,
+                Url = media.Uri.ToString()
                 
             };
         }

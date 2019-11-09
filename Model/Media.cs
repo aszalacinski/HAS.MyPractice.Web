@@ -40,6 +40,7 @@ namespace HAS.MyPractice.Web.Model
         public DateTime UploadDate { get; set; }
         public StateDetails State { get; set; }
         public Manifest Manifest { get; set; }
+        public Uri Uri { get; set; }
     }
 
     public class ContentDetails

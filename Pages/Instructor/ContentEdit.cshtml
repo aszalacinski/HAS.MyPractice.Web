@@ -5,63 +5,149 @@
     ViewData["Title"] = "My Practice";
 }
 
-    <div class="row">
-        <div class="col">
-            <form method="post" enctype="multipart/form-data">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Content Edit</h3>
-                        <small>Media ID# @Model.Data.Id</small>
-                    </div>
-                    <div class="card-body">
-                        <div class="row mt-2">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="Data.FirstName"></label>
-                                    <input asp-for="Data.FirstName" placeholder="Author First Name" class="form-control" disabled />
-                                    <span asp-validation-for="Data.FirstName" class="text-danger"></span>
-                                </div>
+<div class="row">
+    <div class="col">
+        <form method="post" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Content Edit</h3>
+                    <small>Media ID# @Model.Data.Id</small>
+                </div>
+                <div class="card-body">
+                    <div class="row mt-2">
+                        <div class="col text-center">
+                            <div class="mt-2" style="width:100%">
+                                <img src="~/images/fpo.png" width="300">
                             </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="Data.LastName"></label>
-                                    <input asp-for="Data.LastName" placeholder="Author Last Name" class="form-control" disabled />
-                                    <span asp-validation-for="Data.LastName" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="form-group">
-                                    <label asp-for="Data.Title"></label>
-                                    <input asp-for="Data.Title" placeholder="Content Title" class="form-control" />
-                                    <span asp-validation-for="Data.Title" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label asp-for="Data.Duration"></label>
-                                    <input asp-for="Data.Duration" placeholder="Duration" class="form-control" />
-                                    <span asp-validation-for="Data.Duration" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="Data.Description"></label>
-                                    <textarea asp-for="Data.Description" class="form-control"></textarea>
-                                    <span asp-validation-for="Data.Description" class="text-danger"></span>
-                                </div>
+                            <div class="audioContainer">
+                                <audio id="player" controls>
+                                    <source src="@Model.Data.Url" type="audio/mp4" />
+                                </audio>
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <input type="hidden" asp-for="Data.ProfileId" />
-                        <input type="hidden" asp-for="Data.Id" />
-                        <button type="submit" class="btn btn-primary" asp-page-handler="Edit">Submit Changes</button>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Data.FirstName"></label>
+                                <input asp-for="Data.FirstName" placeholder="Author First Name" class="form-control" disabled />
+                                <span asp-validation-for="Data.FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Data.LastName"></label>
+                                <input asp-for="Data.LastName" placeholder="Author Last Name" class="form-control" disabled />
+                                <span asp-validation-for="Data.LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label asp-for="Data.Title"></label>
+                                <input asp-for="Data.Title" placeholder="Content Title" class="form-control" />
+                                <span asp-validation-for="Data.Title" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label asp-for="Data.Duration"></label>
+                                <input asp-for="Data.Duration" placeholder="Duration" class="form-control" />
+                                <span asp-validation-for="Data.Duration" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Data.Description"></label>
+                                <textarea asp-for="Data.Description" class="form-control"></textarea>
+                                <span asp-validation-for="Data.Description" class="text-danger"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </form>
-        </div>
+                <div class="card-footer">
+                    <input type="hidden" asp-for="Data.ProfileId" />
+                    <input type="hidden" asp-for="Data.Id" />
+                    <button type="submit" class="btn btn-primary" asp-page-handler="Edit">Submit Changes</button>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
+@section Styles
+{
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css" />
+    <style>
+        .audioContainer {
+            margin: 25px auto;
+            max-width: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mediaDetails a,
+        .mediaDetails a:link,
+        .mediaDetails a:visited,
+        .mediaDetails a:hover {
+            color: #343a40 !important;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .plyr__controls {
+            justify-content: center !important;
+        }
+
+        .plyr__volume {
+            flex: auto;
+            flex-grow: 0;
+            flex-shrink: 0;
+            flex-basis: 30%;
+        }
+    </style>
+}
+@section Scripts
+{
+    <script src="https://cdn.plyr.io/3.5.6/plyr.polyfilled.js"></script>
+    <script>
+
+    const controls = `
+        <div class="plyr__controls">
+            <button type="button" class="plyr__control" aria-label="Play, {title}" data-plyr="play">
+                <svg class="icon--pressed" role="presentation"><use xlink:href="#plyr-pause"></use></svg>
+                <svg class="icon--not-pressed" role="presentation"><use xlink:href="#plyr-play"></use></svg>
+                <span class="label--pressed plyr__tooltip" role="tooltip">Pause</span>
+                <span class="label--not-pressed plyr__tooltip" role="tooltip">Play</span>
+            </button>
+            <button type="button" class="plyr__control" data-plyr="rewind">
+                <svg role="presentation"><use xlink:href="#plyr-rewind"></use></svg>
+                <span class="plyr__tooltip" role="tooltip">Rewind {seektime} secs</span>
+            </button>
+            <div class="plyr__progress">
+                <input data-plyr="seek" type="range" min="0" max="100" step="0.01" value="0" aria-label="Seek">
+                <progress class="plyr__progress__buffer" min="0" max="100" value="0">% buffered</progress>
+                <span role="tooltip" class="plyr__tooltip">00:00</span>
+            </div>
+            <button type="button" class="plyr__control" data-plyr="fast-forward">
+                <svg role="presentation"><use xlink:href="#plyr-fast-forward"></use></svg>
+                <span class="plyr__tooltip" role="tooltip">Forward {seektime} secs</span>
+            </button>
+            <div class="plyr__time plyr__time--current" aria-label="Current time">00:00</div>
+            <div class="plyr__volume">
+                <input data-plyr="volume" type="range" min="0" max="1" step="0.05" value="1" autocomplete="off" aria-label="Volume">
+            </div>
+        </div>
+        `;
+
+
+    // Change "{}" to your options:
+    // https://github.com/sampotts/plyr/#options
+        const player = new Plyr('#player', {});
+        player.speed = 1;
+
+    // Expose player so it can be used from the console
+    window.player = player;
+    </script>
+}

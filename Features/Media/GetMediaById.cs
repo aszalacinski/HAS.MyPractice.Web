@@ -25,12 +25,12 @@ namespace HAS.MyPractice
             }
         }
 
-        public class GetMedaByIdQueryHandler : IRequestHandler<GetMediaByIdQuery, Media>
+        public class GetMediaByIdQueryHandler : IRequestHandler<GetMediaByIdQuery, Media>
         {
             private readonly IHttpContextAccessor _httpContextAcessor;
             private readonly HttpClient _httpClient;
 
-            public GetMedaByIdQueryHandler(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
+            public GetMediaByIdQueryHandler(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
             {
                 _httpClient = httpClientFactory.CreateClient(HASClientFactories.MEDIA);
                 _httpContextAcessor = httpContextAccessor;
