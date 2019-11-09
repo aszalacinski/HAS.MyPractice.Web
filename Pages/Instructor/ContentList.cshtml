@@ -43,15 +43,12 @@
                             </td>
                             <td>
                                 @{
-                                    if (Model.Data.Shared.Any(x => x.Id != file.Id))
-                                    {
-                                        <form method="post">
-                                            <input type="hidden" asp-for="@Model.Data.HubId" name="hubId" />
-                                            <input type="hidden" asp-for="@Model.Data.LibraryId" name="libraryId" />
-                                            <input type="hidden" asp-for="@file.Id" name="fileId" />
-                                            <button type="submit" class="btn btn-primary" asp-page-handler="Move">Move to Default</button>
-                                        </form>
-                                    }
+                                    <form method="post">
+                                        <input type="hidden" asp-for="@Model.Data.HubId" name="hubId" />
+                                        <input type="hidden" asp-for="@Model.Data.LibraryId" name="libraryId" />
+                                        <input type="hidden" asp-for="@file.Id" name="fileId" />
+                                        <button type="submit" class="btn btn-primary" asp-page-handler="Move">Move to Default</button>
+                                    </form>
                                 }
                             </td>
                         </tr>
@@ -85,7 +82,12 @@
                             <td>@file.State.Status</td>
                             <td>@file.ContentDetails.Title</td>
                             <td>
-                                ???
+                                <form method="post">
+                                    <input type="hidden" asp-for="@Model.Data.HubId" name="hubId" />
+                                    <input type="hidden" asp-for="@Model.Data.LibraryId" name="libraryId" />
+                                    <input type="hidden" asp-for="@file.Id" name="fileId" />
+                                    <button type="submit" class="btn btn-primary" asp-page-handler="Remove">Remove from Default</button>
+                                </form>
                             </td>
                         </tr>
                     }

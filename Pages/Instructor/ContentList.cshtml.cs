@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using static HAS.MyPractice.AddMediaToLibrary;
+using static HAS.MyPractice.DeleteContentFromLibrary;
 using static HAS.MyPractice.GetAllMediaByProfileId;
 using static HAS.MyPractice.GetAllMediaInDefaultLibrary;
 using static HAS.MyPractice.GetHubByProfileId;
@@ -61,5 +62,14 @@ namespace HAS.MyPractice.Web.Pages.Instructor
             return RedirectToPage("ContentList");
         }
 
+        public async Task<IActionResult> OnPostRemoveAsync(string hubId, string libraryId, string fileId)
+        {
+            Profile profile = JsonSerializer.Deserialize<Profile>(HttpContext.Session.GetString(HASSessionKeys.SessionKeyProfileName), DefaultJsonSettings.Settings);
+
+            var removed = await _mediator.Send(new DeleteContentFromLibraryCommand(profile.Id, hubId, libraryId, fileId));
+
+            return RedirectToPage("ContentList");
+
+        }
     }
 }

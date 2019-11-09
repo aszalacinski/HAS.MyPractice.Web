@@ -1,28 +1,27 @@
-﻿using HAS.MyPractice.Web.Model;
-using IdentityModel.Client;
+﻿using IdentityModel.Client;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace HAS.MyPractice
 {
-    public class AddMediaToLibrary
+    public class DeleteContentFromLibrary
     {
-        public class AddMediaToLibraryCommand : IRequest<IEnumerable<AddMediaToLibraryResult>>
+        public class DeleteContentFromLibraryCommand : IRequest<bool>
         {
             public string ProfileId { get; private set; }
             public string HubId { get; private set; }
             public string LibraryId { get; private set; }
             public string MediaId { get; private set; }
 
-            public AddMediaToLibraryCommand(string profileId, string hubId, string libraryId, string mediaId)
+            public DeleteContentFromLibraryCommand(string profileId, string hubId, string libraryId, string mediaId)
             {
                 ProfileId = profileId;
                 HubId = hubId;
@@ -31,24 +30,18 @@ namespace HAS.MyPractice
             }
         }
 
-        public class AddMediaToLibraryResult
-        {
-            public string Id { get; set; }
-            public DateTime AddDate { get; set; }
-        }
-
-        public class AddMediaToLibraryCommandHandler : IRequestHandler<AddMediaToLibraryCommand, IEnumerable<AddMediaToLibraryResult>>
+        public class DeleteContentFromLibraryCommandHandler : IRequestHandler<DeleteContentFromLibraryCommand, bool>
         {
             private readonly IHttpContextAccessor _httpContextAcessor;
             private readonly HttpClient _httpClient;
 
-            public AddMediaToLibraryCommandHandler(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
+            public DeleteContentFromLibraryCommandHandler(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
             {
                 _httpClient = httpClientFactory.CreateClient(HASClientFactories.LIBRARY);
                 _httpContextAcessor = httpContextAccessor;
             }
 
-            public async Task<IEnumerable<AddMediaToLibraryResult>> Handle(AddMediaToLibraryCommand cmd, CancellationToken cancellationToken)
+            public async Task<bool> Handle(DeleteContentFromLibraryCommand cmd, CancellationToken cancellationToken)
             {
                 var accessToken = await _httpContextAcessor.HttpContext.GetTokenAsync("access_token");
 
@@ -57,18 +50,14 @@ namespace HAS.MyPractice
                 _httpClient.SetBearerToken(accessToken);
                 _httpClient.DefaultRequestHeaders.Add("p", cmd.ProfileId);
 
-                var response = await _httpClient.PutAsync(uri, null);
+                var response = await _httpClient.DeleteAsync(uri);
 
-                if (!response.IsSuccessStatusCode)
+                if (response.StatusCode.Equals(HttpStatusCode.NotFound))
                 {
-                    return null;
+                    return true;
                 }
 
-                var content = await response.Content.ReadAsStringAsync();
-
-                var library = JsonSerializer.Deserialize<IEnumerable<AddMediaToLibraryResult>>(content, DefaultJsonSettings.Settings);
-
-                return library;
+                return false;
             }
         }
     }
