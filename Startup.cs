@@ -3,6 +3,7 @@ using FluentValidation.AspNetCore;
 using IdentityModel.Client;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,7 @@ namespace HAS.MyPractice.Web
             Configuration = configuration;
 
             var testConfig = Configuration["MPY:Version"];
+            var hasTestConfig = Configuration["HAS:Version"];
 
             Environment = env;
         }
@@ -36,6 +38,16 @@ namespace HAS.MyPractice.Web
                 IdentityModelEventSource.ShowPII = true;
                 services.AddMiniProfiler();
             }
+
+            var dapiKeysFileBlobStorageUri = Configuration["HAS:DataProtection:BlobStorageUri"];
+            var hasKeyVaultKeyIdentifier = "https://happyappsoftware-base.vault.azure.net/keys/DAPI-Key/fa62952661a746938d5f5a2ac4fad4fa";
+            var hasKeyVaultClientId = Configuration["Azure:KeyVault:HAS:ClientId"];
+            var hasKeyVaultClientSecret = Configuration["Azure:KeyVault:HAS:ClientSecret"];
+
+            services.AddDataProtection()
+                .PersistKeysToAzureBlobStorage(new Uri(dapiKeysFileBlobStorageUri))
+                .ProtectKeysWithAzureKeyVault(hasKeyVaultKeyIdentifier, hasKeyVaultClientId, hasKeyVaultClientSecret);
+
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
