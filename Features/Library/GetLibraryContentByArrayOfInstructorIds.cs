@@ -38,11 +38,11 @@ namespace HAS.MyPractice
             {
                 var accessToken = await _httpContextAcessor.HttpContext.GetTokenAsync("access_token");
 
-                var instructorIds = query.InstructorIds.Select(x => new { param = "instructorId", value = x }).ToDictionary(t => t.param, t => t.value);
+                var instructorIds = query.InstructorIds.Select(x => new KeyValuePair<string, string>("instructorId", x)).ToList();
 
                 string uri = $"content";
-                var queryString = QueryHelpers.AddQueryString(uri, instructorIds);
-
+                var queryString = $"{uri}{QueryString.Create(instructorIds).ToString()}";
+                
                 _httpClient.SetBearerToken(accessToken);
 
                 var response = await _httpClient.GetAsync(queryString);

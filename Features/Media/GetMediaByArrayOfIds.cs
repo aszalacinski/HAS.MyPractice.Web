@@ -36,11 +36,13 @@ namespace HAS.MyPractice
 
             public async Task<IEnumerable<Media>> Handle(GetMediaByArrayOfIdsQuery query, CancellationToken cancellationToken)
             {
-                var contentIds = query.Ids.Select(x => new { param = "mediaids", value = x }).ToDictionary(t => t.param, t => t.value);
+                var mediaIds = query.Ids.Select(x => new KeyValuePair<string, string>("mediaIds", x)).ToList();
+
                 var accessToken = await _httpContextAcessor.HttpContext.GetTokenAsync("access_token");
                 
+
                 string uri = $"multi";
-                var queryString = QueryHelpers.AddQueryString(uri, contentIds);
+                var queryString = $"{uri}{QueryString.Create(mediaIds).ToString()}";
 
                 _httpClient.SetBearerToken(accessToken);
 
