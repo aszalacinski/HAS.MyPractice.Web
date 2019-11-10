@@ -16,20 +16,12 @@ namespace HAS.MyPractice.Web
 {
     public class Startup
     {
-        public Startup(IHostEnvironment env)
+        public Startup(IConfiguration configuration, IHostEnvironment env)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
+            Configuration = configuration;
 
-            if (env.IsDevelopment())
-            {
-                builder.AddUserSecrets<Startup>();
-            }
+            var testConfig = Configuration["MPY:Version"];
 
-            Configuration = builder.Build();
             Environment = env;
         }
 
@@ -52,22 +44,22 @@ namespace HAS.MyPractice.Web
             
             services.AddHttpClient(HASClientFactories.LIBRARY, client =>
             {
-                client.BaseAddress = new Uri(Configuration["MPY:API.Library:Authority"]);
+                client.BaseAddress = new Uri(Configuration["MPY:API:Library:Authority"]);
             });
 
             services.AddHttpClient(HASClientFactories.MEDIA, client =>
             {
-                client.BaseAddress = new Uri(Configuration["MPY:API.Media:Authority"]);
+                client.BaseAddress = new Uri(Configuration["MPY:API:Media:Authority"]);
             });
 
             services.AddHttpClient(HASClientFactories.PROFILE, client =>
             {
-                client.BaseAddress = new Uri(Configuration["MPY:API.Profile:Authority"]);
+                client.BaseAddress = new Uri(Configuration["MPY:API:Profile:Authority"]);
             });
 
             services.AddHttpClient(HASClientFactories.TRIBE, client =>
             {
-                client.BaseAddress = new Uri(Configuration["MPY:API.Tribe:Authority"]);
+                client.BaseAddress = new Uri(Configuration["MPY:API:Tribe:Authority"]);
             });
 
             services.AddHttpClient(HASClientFactories.IDENTITY, client =>

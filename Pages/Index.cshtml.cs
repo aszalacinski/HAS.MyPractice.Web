@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Threading.Tasks;
 using static HAS.MyPractice.DataProtection.DataProtectionDecrypt;
 
@@ -22,6 +23,8 @@ namespace HAS.MyPractice.Web.Pages
         public string Id { get; set; }
         public string CookieOutput { get; set; }
 
+        public string TestSecret { get; set; }
+
         public async Task OnGet()
         {
             Token = await HttpContext.GetTokenAsync("access_token");
@@ -32,6 +35,7 @@ namespace HAS.MyPractice.Web.Pages
             {
                 CookieOutput = await _mediator.Send(new DataProtectDecryptCommand(cookie));
             }
+
 
         }
 
