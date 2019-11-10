@@ -40,7 +40,7 @@ namespace HAS.MyPractice.Web
             }
 
             var dapiKeysFileBlobStorageUri = Configuration["HAS:DataProtection:BlobStorageUri"];
-            var hasKeyVaultKeyIdentifier = "https://happyappsoftware-base.vault.azure.net/keys/DAPI-Key/fa62952661a746938d5f5a2ac4fad4fa";
+            var hasKeyVaultKeyIdentifier = Configuration["HAS:DataProtection:KeyIdentifier"];
             var hasKeyVaultClientId = Configuration["Azure:KeyVault:HAS:ClientId"];
             var hasKeyVaultClientSecret = Configuration["Azure:KeyVault:HAS:ClientSecret"];
 
