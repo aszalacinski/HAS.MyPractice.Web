@@ -89,12 +89,15 @@ namespace HAS.MyPractice.Web
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
-
+            
             services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizeFolder("/Admin", "admin");
                 options.Conventions.AuthorizeFolder("/Instructor", "instructor");
-            }).AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<Startup>(); });
+               
+            })
+                .AddRazorRuntimeCompilation()
+                .AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<Startup>(); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

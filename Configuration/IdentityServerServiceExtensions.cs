@@ -19,9 +19,9 @@ namespace HAS.MyPractice
             })
                 .AddCookie("Cookies", options =>
                 {
-                    //options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-                    //options.SlidingExpiration = true;
-                    //options.Cookie.Name = "mpy.web.autorefresh";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                    options.SlidingExpiration = true;
+                    options.Cookie.Name = "mpy.web.autorefresh";
                 })
                 .AddAutomaticTokenManagement()
                 .AddOpenIdConnect("oidc", options =>
