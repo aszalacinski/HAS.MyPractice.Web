@@ -39,7 +39,7 @@ namespace HAS.MyPractice
 
                     options.SignInScheme = "Cookies";
 
-                    options.Authority = configuration.GetSection("MPY:IdentityServer:Authority").Value;
+                    options.Authority = configuration["MPY:IdentityServer:Authority"];
 
                     if (env.IsDevelopment())
                     {

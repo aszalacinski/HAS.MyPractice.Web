@@ -21,6 +21,7 @@ namespace HAS.MyPractice.Web
         {
             Configuration = configuration;
 
+            var test = Configuration["MPY:IdentityServer:Authority"];
             var testConfig = Configuration["MPY:Version"];
             var hasTestConfig = Configuration["HAS:Version"];
 
@@ -41,8 +42,8 @@ namespace HAS.MyPractice.Web
 
             var dapiKeysFileBlobStorageUri = Configuration["HAS:DataProtection:BlobStorageUri"];
             var hasKeyVaultKeyIdentifier = Configuration["HAS:DataProtection:KeyIdentifier"];
-            var hasKeyVaultClientId = Configuration["Azure:KeyVault:HAS:ClientId"];
-            var hasKeyVaultClientSecret = Configuration["Azure:KeyVault:HAS:ClientSecret"];
+            var hasKeyVaultClientId = Configuration["Azure.KeyVault.HAS.ClientId"];
+            var hasKeyVaultClientSecret = Configuration["Azure.KeyVault.HAS.ClientSecret"];
 
             services.AddDataProtection()
                 .PersistKeysToAzureBlobStorage(new Uri(dapiKeysFileBlobStorageUri))
@@ -73,7 +74,7 @@ namespace HAS.MyPractice.Web
             {
                 client.BaseAddress = new Uri(Configuration["MPY:API:Tribe:Authority"]);
             });
-
+            
             services.AddHttpClient(HASClientFactories.IDENTITY, client =>
             {
                 client.BaseAddress = new Uri(Configuration["MPY:IdentityServer:Authority"]);
