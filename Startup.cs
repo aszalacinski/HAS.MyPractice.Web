@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -42,12 +44,15 @@ namespace HAS.MyPractice.Web
 
             var dapiKeysFileBlobStorageUri = Configuration["HAS:DataProtection:BlobStorageUri"];
             var hasKeyVaultKeyIdentifier = Configuration["HAS:DataProtection:KeyIdentifier"];
-            var hasKeyVaultClientId = Configuration["Azure.KeyVault.HAS.ClientId"];
-            var hasKeyVaultClientSecret = Configuration["Azure.KeyVault.HAS.ClientSecret"];
+
+            var azureServiceTokenProvider = new AzureServiceTokenProvider();
+            var keyVaultClient = new KeyVaultClient(
+                new KeyVaultClient.AuthenticationCallback(
+                    azureServiceTokenProvider.KeyVaultTokenCallback));
 
             services.AddDataProtection()
                 .PersistKeysToAzureBlobStorage(new Uri(dapiKeysFileBlobStorageUri))
-                .ProtectKeysWithAzureKeyVault(hasKeyVaultKeyIdentifier, hasKeyVaultClientId, hasKeyVaultClientSecret);
+                .ProtectKeysWithAzureKeyVault(keyVaultClient, hasKeyVaultKeyIdentifier);
 
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup));
