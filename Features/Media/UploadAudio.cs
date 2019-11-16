@@ -29,7 +29,7 @@ namespace HAS.MyPractice
 
             public UploadAudioCommandHandler(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
             {
-                _httpClient = httpClientFactory.CreateClient(HASClientFactories.MEDIA);
+                _httpClient = httpClientFactory.CreateClient(HASClientFactories.UPLOAD);
                 _httpContextAcessor = httpContextAccessor;
             }
 
@@ -37,7 +37,7 @@ namespace HAS.MyPractice
             {
                 var accessToken = await _httpContextAcessor.HttpContext.GetTokenAsync("access_token");
 
-                string uri = $"new";
+                string uri = $"audio";
 
                 _httpClient.SetBearerToken(accessToken);
 

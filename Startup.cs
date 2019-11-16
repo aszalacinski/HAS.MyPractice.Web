@@ -85,6 +85,11 @@ namespace HAS.MyPractice.Web
                 client.BaseAddress = new Uri(Configuration["MPY:IdentityServer:Authority"]);
             });
 
+            services.AddHttpClient(HASClientFactories.UPLOAD, client =>
+            {
+                client.BaseAddress = new Uri(Configuration["MPY:API:Upload:Authority"]);
+            });
+
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
             services.AddHASIdentityService(Configuration, Environment);
