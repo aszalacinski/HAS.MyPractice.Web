@@ -50,6 +50,7 @@ namespace HAS.MyPractice.Web.Model
     public class InstructorDetails
     {
         public DateTime? StartDate { get; set; }
+        public string PublicName { get; set; }
     }
 
     public class ClassDetails

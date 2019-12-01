@@ -3,7 +3,10 @@ using IdentityModel.Client;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using System;
+using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,7 +18,12 @@ namespace HAS.MyPractice
         public class UpdateProfileToInstructorCommand : IRequest<Profile>
         {
             public string ProfileId { get; private set; }
-            public UpdateProfileToInstructorCommand(string profileId) => ProfileId = profileId;
+            public string PublicName { get; private set; }
+            public UpdateProfileToInstructorCommand(string profileId, string publicName)
+            {
+                ProfileId = profileId;
+                PublicName = publicName;
+            }
         }
 
         public class UpdateProfileToInstructorCommandHandler : IRequestHandler<UpdateProfileToInstructorCommand, Profile>
@@ -37,17 +45,34 @@ namespace HAS.MyPractice
 
                 _httpClient.SetBearerToken(accessToken);
 
-                var response = await _httpClient.PutAsync(uri, null);
+                var payload = new { cmd.PublicName };
+
+                var json = JsonSerializer.Serialize(payload, DefaultJsonSettings.Settings);
+
+                var putContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PutAsync(uri, putContent);
+                
+                var content = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    return null;
+                    throw new InstructorPublicNameException(content);
                 }
-
-                var content = await response.Content.ReadAsStringAsync();
-
+                
                 return JsonSerializer.Deserialize<Profile>(content, DefaultJsonSettings.Settings);
             }
         }
+    }
+
+    public class InstructorPublicNameException : Exception
+    {
+        public InstructorPublicNameException() { }
+
+        public InstructorPublicNameException(string message)
+            : base(message) { }
+
+        public InstructorPublicNameException(string message, Exception inner)
+            : base(message, inner) { }
     }
 }

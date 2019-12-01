@@ -12,6 +12,7 @@ using static HAS.MyPractice.GetInstructorProfiles;
 using static HAS.MyPractice.GetStudentProfiles;
 using static HAS.MyPractice.ProvisionAsInstructor;
 using static HAS.MyPractice.ProvisionAsStudent;
+using static HAS.MyPractice.Web.Features.Alert.ThrowAlert;
 
 namespace HAS.MyPractice.Web.Pages.Admin
 {
@@ -47,7 +48,15 @@ namespace HAS.MyPractice.Web.Pages.Admin
 
         public async Task<IActionResult> OnPostToInstructorAsync(string profileId)
         {
-            var convert = await _mediator.Send(new ProvisionAsInstructorCommand(profileId));
+            try
+            {
+                var convert = await _mediator.Send(new ProvisionAsInstructorCommand(profileId));
+            }
+            catch(InstructorPublicNameException ex)
+            {
+                await _mediator.Send(new ThrowAlertCommand(AlertType.DANGER, $"Invalid Public Name for Instructor", ex.Message));
+                return RedirectToPage("ManageProfiles", new { t = "student" });
+            }
             return RedirectToPage("ManageProfiles", new { t = "instructor" });
         }
 
