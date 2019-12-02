@@ -116,6 +116,7 @@ namespace HAS.MyPractice.Web
             
             services.AddRazorPages(options =>
             {
+                options.Conventions.AuthorizeFolder("/Student", "student");
                 options.Conventions.AuthorizeFolder("/Admin", "admin");
                 options.Conventions.AuthorizeFolder("/Instructor", "instructor");
                
