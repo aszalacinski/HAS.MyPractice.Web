@@ -32,6 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\InviteInstructor\Email\" />
+    <Folder Include="Features\InviteInstructor\GatedRegistration\" />
+    <Folder Include="Features\InviteInstructor\SendGrid\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

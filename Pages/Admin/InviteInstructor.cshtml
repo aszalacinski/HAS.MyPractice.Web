@@ -1,0 +1,54 @@
+﻿@page
+@model HAS.MyPractice.Web.Pages.Admin.InviteInstructorModel
+@{
+    ViewData["Title"] = "My Practice";
+}
+
+<div class="row">
+    <div class="col">
+        <h3>Invite Instructor</h3>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col">
+        <form method="post" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Data.Email"></label>
+                                <input asp-for="Data.Email" placeholder="Instructor Email!" class="form-control" />
+                                <span asp-validation-for="Data.Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Data.FirstName"></label>
+                                <input asp-for="Data.FirstName" placeholder="Instructor First Name" class="form-control" />
+                                <span asp-validation-for="Data.FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Data.LastName"></label>
+                                <input asp-for="Data.LastName" placeholder="Instructor Last Name" class="form-control" />
+                                <span asp-validation-for="Data.LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
