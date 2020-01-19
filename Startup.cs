@@ -1,11 +1,13 @@
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using HAS.MyPractice.Web.Features.InviteUser;
 using IdentityModel.Client;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
@@ -57,6 +59,7 @@ namespace HAS.MyPractice.Web
 
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup));
+            services.AddScoped<GatedRegistrationContext>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddHttpClient();
@@ -113,7 +116,9 @@ namespace HAS.MyPractice.Web
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
-            
+
+            //services.AddTransient<IEmailSender, SendGridEmailSender>();
+
             services.AddRazorPages(options =>
             {
                 options.Conventions.AuthorizeFolder("/Student", "student");
