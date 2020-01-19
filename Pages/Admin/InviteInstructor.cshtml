@@ -51,4 +51,45 @@
         </form>
     </div>
 </div>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h2>Pending Instructor Invites</h2>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Entry Code</th>
+                                <th scope="col" colspan="2">Date Invited</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var member in Model.Pending)
+                            {
+                                <tr>
+                                    <th scope="row">@member.FirstName @member.LastName</th>
+                                    <td>@member.EmailAddress</td>
+                                    <td>@member.EntryCode</td>
+                                    <td>@member.Logs.FirstOrDefault().AttemptDate.ToString("yyyy-MM-dd")</td>
+                                    <td>
+                                        <form method="post">
+                                            <input type="hidden" asp-for="@member.FirstName" name="firstName" />
+                                            <input type="hidden" asp-for="@member.LastName" name="lastName" />
+                                            <input type="hidden" asp-for="@member.EmailAddress" name="emailAddress" />
+                                            <input type="hidden" asp-for="@member.EntryCode" name="entryCode" />
+                                            <button type="submit" class="btn btn-primary" asp-page-handler="ResendInvite">Resend Invite</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

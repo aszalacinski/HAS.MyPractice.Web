@@ -39,7 +39,7 @@ namespace HAS.MyPractice.Web.Features.InviteUser
                 var callbackUrl = $"https://register.mypractice.yoga/Account/Register/Instructor?code={cmd.User.EntryCode}";
 
                 await _emailSender.SendEmailAsync(cmd.User.EmailAddress, "MyPractice.Yoga - Instructor Invite",
-                    $"Congratulations! You have been invited to be an Instructor on MyPractice.Yoga! Complete your registration at the following link: <a href=\"{callbackUrl}\">link</a>");
+                    $"Congratulations {cmd.User.FirstName} {cmd.User.LastName}! You have been invited to be an Instructor on MyPractice.Yoga! Complete your registration at the following link: <a href=\"{callbackUrl}\">link</a>");
 
                 return Unit.Value;
             }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using static HAS.MyPractice.Web.Features.Alert.ThrowAlert;
 using static HAS.MyPractice.Web.Features.InviteUser.AddUserToGatedRegistration;
 using static HAS.MyPractice.Web.Features.InviteUser.GatedRegistration.GenerateRandomEntryCode;
+using static HAS.MyPractice.Web.Features.InviteUser.GatedRegistration.GetAllPendingInstructorsInvites;
 using static HAS.MyPractice.Web.Features.InviteUser.GatedRegistration.GetUserInGatedRegistrationByEmailAddress;
 using static HAS.MyPractice.Web.Features.InviteUser.SendInstructorInviteEmail;
 
@@ -30,9 +31,12 @@ namespace HAS.MyPractice.Web.Pages.Admin
             public string LastName { get; set; }
         }
 
-        public void OnGet()
+        public IEnumerable<InvitedUser> Pending { get; set; }
+
+        public async Task OnGet()
         {
             Data = new CommandResult();
+            Pending = await _mediator.Send(new GetAllPendingInstructorsInvitesQuery());
         }
 
         public class Validator : AbstractValidator<CommandResult>
@@ -86,6 +90,17 @@ namespace HAS.MyPractice.Web.Pages.Admin
             }
 
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostResendInvite(string firstName, string lastName, string emailAddress, string entryCode)
+        {
+            var instructorUser = InvitedUser.Create(string.Empty, firstName, lastName, emailAddress, string.Empty, entryCode, false, true, DateTime.MinValue, new List<InvitedUserLogEntry>());
+
+            await _mediator.Send(new SendInstructorInviteEmailCommand(instructorUser));
+
+            await _mediator.Send(new ThrowAlertCommand(AlertType.SUCCESS, $"Invite to join has been resent to {firstName} {lastName}!", $"Another email was sent to {Data.FirstName} using {Data.Email}"));
+
+            return RedirectToPage();
         }
     }
 }
