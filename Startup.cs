@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
@@ -117,7 +118,19 @@ namespace HAS.MyPractice.Web
                 options.Cookie.IsEssential = true;
             });
 
-            //services.AddTransient<IEmailSender, SendGridEmailSender>();
+            services.AddSingleton(new AuthMessageSenderOptions
+            {
+                SendGridKey = Configuration.GetSection("SendGrid:Key").Value,
+                SendGridUser = Configuration.GetSection("SendGrid:User").Value
+            });
+
+            services.AddTransient<IEmailSender, SendGridEmailSender>();
+
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddHttpContextAccessor();
 
             services.AddRazorPages(options =>
             {

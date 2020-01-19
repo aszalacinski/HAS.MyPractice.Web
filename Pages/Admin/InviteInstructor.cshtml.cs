@@ -10,6 +10,7 @@ using static HAS.MyPractice.Web.Features.Alert.ThrowAlert;
 using static HAS.MyPractice.Web.Features.InviteUser.AddUserToGatedRegistration;
 using static HAS.MyPractice.Web.Features.InviteUser.GatedRegistration.GenerateRandomEntryCode;
 using static HAS.MyPractice.Web.Features.InviteUser.GatedRegistration.GetUserInGatedRegistrationByEmailAddress;
+using static HAS.MyPractice.Web.Features.InviteUser.SendInstructorInviteEmail;
 
 namespace HAS.MyPractice.Web.Pages.Admin
 {
@@ -64,6 +65,8 @@ namespace HAS.MyPractice.Web.Pages.Admin
                     if(addInstructor)
                     {
                         // send email to instructor
+
+                        await _mediator.Send(new SendInstructorInviteEmailCommand(instructorUser));
 
                         await _mediator.Send(new ThrowAlertCommand(AlertType.SUCCESS, $"{Data.FirstName} {Data.LastName} was invited to join as an Instructor!", $"An email was sent to {Data.FirstName} using {Data.Email}"));
 
