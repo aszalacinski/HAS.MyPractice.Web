@@ -37,6 +37,9 @@ namespace HAS.MyPractice.Web.Features.InviteUser
             [BsonElement("email")]
             public string EmailAddress { get; set; }
 
+            [BsonElement("i_id")]
+            public string InstructorId { get; set; }
+
             [BsonElement("ipname")]
             public string InstructorPublicName { get; set; }
 

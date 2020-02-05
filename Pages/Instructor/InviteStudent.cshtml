@@ -1,0 +1,102 @@
+﻿@page
+@model HAS.MyPractice.Web.InviteStudentModel
+@{
+    ViewData["Title"] = "Invite Students";
+}
+<div class="row">
+    <div class="col">
+        <h3>Invite Students</h3>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col">
+        <form method="post" enctype="multipart/form-data">
+            <div class="card">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Data.Email"></label>
+                                <input asp-for="Data.Email" placeholder="Student Email" class="form-control" />
+                                <span asp-validation-for="Data.Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Data.FirstName"></label>
+                                <input asp-for="Data.FirstName" placeholder="Student First Name" class="form-control" />
+                                <span asp-validation-for="Data.FirstName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label asp-for="Data.LastName"></label>
+                                <input asp-for="Data.LastName" placeholder="Student Last Name" class="form-control" />
+                                <span asp-validation-for="Data.LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <input type="hidden" asp-for="Data.InstructorId" />
+                    <input type="hidden" asp-for="Data.InstructorName" />
+                    <input type="hidden" asp-for="Data.InstructorPublicName" />
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h2>Pending Instructor Invites</h2>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Entry Code</th>
+                                <th scope="col">Public Name Used</th>
+                                <th scope="col" colspan="2">Date Invited</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var member in Model.Pending)
+                            {
+                            <tr>
+                                <th scope="row">@member.FirstName @member.LastName</th>
+                                <td>@member.EmailAddress</td>
+                                <td>@member.EntryCode</td>
+                                <td>@member.InstructorPublicName</td>
+                                <td>@member.Logs.FirstOrDefault().AttemptDate.ToString("yyyy-MM-dd")</td>
+                                <td>
+                                    <form method="post">
+                                        <input type="hidden" asp-for="@member.FirstName" />
+                                        <input type="hidden" asp-for="@member.LastName" />
+                                        <input type="hidden" asp-for="@member.EmailAddress" />
+                                        <input type="hidden" asp-for="@member.EntryCode" />
+                                        <input type="hidden" asp-for="Data.InstructorName" />
+                                        <input type="hidden" asp-for="Data.InstructorPublicName" />
+                                        <input type="hidden" asp-for="Data.InstructorId" />
+                                        <button type="submit" class="btn btn-primary" asp-page-handler="ResendInvite">Resend Invite</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

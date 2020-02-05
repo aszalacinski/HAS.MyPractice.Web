@@ -10,6 +10,7 @@ namespace HAS.MyPractice.Web.Features.InviteUser
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public string EmailAddress { get; private set; }
+        public string InstructorId { get; private set; }
         public string InstructorPublicName { get; private set; }
         public string EntryCode { get; private set; }
         public bool Registered { get; private set; }
@@ -19,12 +20,13 @@ namespace HAS.MyPractice.Web.Features.InviteUser
 
         private InvitedUser() { }
 
-        private InvitedUser(string id, string firstName, string lastName, string emailAddress, string instructorPublicName, string entryCode, bool isRegistered, bool isInvited, DateTime dateRegistered, IEnumerable<InvitedUserLogEntry> logs)
+        private InvitedUser(string id, string firstName, string lastName, string emailAddress, string instructorId, string instructorPublicName, string entryCode, bool isRegistered, bool isInvited, DateTime dateRegistered, IEnumerable<InvitedUserLogEntry> logs)
         {
             Id = id;
             FirstName = firstName;
             LastName = lastName;
             EmailAddress = emailAddress;
+            InstructorId = instructorId;
             InstructorPublicName = instructorPublicName;
             EntryCode = entryCode;
             Registered = isRegistered;
@@ -45,8 +47,8 @@ namespace HAS.MyPractice.Web.Features.InviteUser
 
         public void Log(bool registrationAttempt, int resultCode, string entryCode = null) => Logs.Add(InvitedUserLogEntry.Create(entryCode ?? EntryCode, EmailAddress, DateTime.UtcNow, registrationAttempt, resultCode));
 
-        public static InvitedUser Create(string id, string firstName, string lastName, string emailAddress, string instructorPublicName, string entryCode, bool isRegistered, bool isInvited, DateTime dateRegistered, IEnumerable<InvitedUserLogEntry> logs)
-            => new InvitedUser(id, firstName, lastName, emailAddress, instructorPublicName, entryCode, isRegistered, isInvited, dateRegistered, logs);
+        public static InvitedUser Create(string id, string firstName, string lastName, string emailAddress, string instructorId, string instructorPublicName, string entryCode, bool isRegistered, bool isInvited, DateTime dateRegistered, IEnumerable<InvitedUserLogEntry> logs)
+            => new InvitedUser(id, firstName, lastName, emailAddress, instructorId, instructorPublicName, entryCode, isRegistered, isInvited, dateRegistered, logs);
     }
 
     public class InvitedUserLogEntry

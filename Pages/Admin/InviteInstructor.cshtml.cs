@@ -61,7 +61,7 @@ namespace HAS.MyPractice.Web.Pages.Admin
                     var entryCode = await _mediator.Send(new GenerateRandomEntryCodeQuery(8));
 
                     // add to DB
-                    var instructorUser = InvitedUser.Create(string.Empty, Data.FirstName, Data.LastName, Data.Email, string.Empty, entryCode, false, true, DateTime.MinValue, new List<InvitedUserLogEntry>());
+                    var instructorUser = InvitedUser.Create(string.Empty, Data.FirstName, Data.LastName, Data.Email, string.Empty, string.Empty, entryCode, false, true, DateTime.MinValue, new List<InvitedUserLogEntry>());
                     instructorUser.Log(false, 200, entryCode);
 
                     var addInstructor = await _mediator.Send(new AddUserToGatedRegistrationCommand(instructorUser));
@@ -94,7 +94,7 @@ namespace HAS.MyPractice.Web.Pages.Admin
 
         public async Task<IActionResult> OnPostResendInvite(string firstName, string lastName, string emailAddress, string entryCode)
         {
-            var instructorUser = InvitedUser.Create(string.Empty, firstName, lastName, emailAddress, string.Empty, entryCode, false, true, DateTime.MinValue, new List<InvitedUserLogEntry>());
+            var instructorUser = InvitedUser.Create(string.Empty, firstName, lastName, emailAddress, string.Empty, string.Empty, entryCode, false, true, DateTime.MinValue, new List<InvitedUserLogEntry>());
 
             await _mediator.Send(new SendInstructorInviteEmailCommand(instructorUser));
 

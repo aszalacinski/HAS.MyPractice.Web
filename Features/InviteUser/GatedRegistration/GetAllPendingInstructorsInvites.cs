@@ -33,7 +33,7 @@ namespace HAS.MyPractice.Web.Features.InviteUser.GatedRegistration
 
             public async Task<IEnumerable<InvitedUser>> Handle(GetAllPendingInstructorsInvitesQuery request, CancellationToken cancellationToken)
             {
-                var pendingInvites = await _db.Users.Find(x => x.Invited == true && x.Registered == false).ToListAsync();
+                var pendingInvites = await _db.Users.Find(x => x.Invited == true && x.Registered == false && string.IsNullOrEmpty(x.InstructorPublicName)).ToListAsync();
                 
                 var mapper = new Mapper(_mapperConfiguration);
 
