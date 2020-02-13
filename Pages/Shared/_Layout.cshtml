@@ -4,143 +4,213 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MyPractice.Yoga</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link href="~/css/site.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Fira+Sans:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Lato:100,100i,300,300i,400,400i,700,700i,900,900i&display=swap" rel="stylesheet">
+    <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
+    @*<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">*@
     @RenderSection("Styles", false)
 </head>
-<body>
-    <mini-profiler />
-    <header>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <!-- Web Nav -->
-            <nav class="navbar navbar-expand-lg navbar-light mb-3 d-none d-md-flex d-xl-flex">
-                <div class="container">
-                    <a class="navbar-brand" asp-page="/Index">MPY</a>
-                    <div class="navbar-collapse collapse justify-content-end">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Student/Dashboard">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Student/Library">Library</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Student/Profile">Profile</a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav flex-grow-1 justify-content-end">
+<body class="bg-orange-200 mb-0 subpixel-antialiased">
+    <div class="static mx-auto md-bg-orange-400 max-w-full">
+        <div id="app" class="px-6 pt-6">
+            <header>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <!-- Web Nav -->
+                    @*<nav class="navbar navbar-expand-lg navbar-light mb-3 d-none d-md-flex d-xl-flex">
+                        <div class="container">
+                            <a class="navbar-brand" asp-page="/Index">MPY</a>
+                            <div class="navbar-collapse collapse justify-content-end">
+                                <ul class="navbar-nav flex-grow-1">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-page="/Student/Dashboard">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-page="/Student/Library">Library</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-page="/Student/Profile">Profile</a>
+                                    </li>
+                                </ul>
+                                <ul class="navbar-nav flex-grow-1 justify-content-end">
+                                    @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "instructor".ToLower()))
+                                    {
+                                        <li class="nav-item dropdown">
+                                            <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
+                                                Instructor
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a asp-page="/Instructor/UploadAudio" class="dropdown-item">Upload Audio</a>
+                                                <a asp-page="/Instructor/ContentList" class="dropdown-item">List Content</a>
+                                                <a asp-page="/Instructor/Profile" class="dropdown-item">Profile</a>
+                                                <a asp-page="/Instructor/InviteStudent" class="dropdown-item">Invite Students</a>
+                                            </div>
+                                        </li>
+                                    }
+                                    @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "admin".ToLower()))
+                                    {
+                                        <li class="nav-item dropdown">
+                                            <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">Admin</a>
+                                            <div class="dropdown-menu">
+                                                <a asp-page="/Admin/ManageProfiles" class="dropdown-item">Manage Profiles</a>
+                                                <a asp-page="/Admin/InviteInstructor" class="dropdown-item">Invite Instructor</a>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                                    <a asp-page="/Help" class="nav-link text-dark">Help</a>
+                                    <form asp-page="/Account/Logout" class="form-inline">
+                                        <button class="btn btn-link text-dark">Sign Out</button>
+                                    </form>
+                                </div>
+                        </div>
+                    </nav>*@
+
+                    <!-- Mobile Nav -->
+                    @*<nav class="navbar navbar-expand-lg navbar-light fixed-bottom d-block d-sm-none" style="background-color: rgba(235,235,235,1);">
+                        <div class="navbar-nav">
+                            <ul class="nav nav-fill text-dark">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-page="/Student/Dashboard"><i class="fas fa-home fa-lg"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-page="/Student/Library"><i class="fas fa-list-ul fa-lg"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-page="/Student/Profile"><i class="fas fa-user fa-lg"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-page="/Help" class="nav-link text-dark"><i class="fas fa-question fa-lg"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <form asp-page="/Account/Logout" class="form-inline">
+                                        <button class="btn btn-link text-dark"><i class="fas fa-sign-out-alt fa-lg"></i></button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>*@
+                }
+                else
+                {
+                    <!-- Web Nav -->
+                    @*<nav class="navbar navbar-expand-lg navbar-light mb-3 d-none d-md-flex d-xl-flex">
+                        <div class="container">
+                            <a class="navbar-brand" asp-area="" asp-page="/Index">MPY</a>
+                            <div class="navbar-collapse">
+                                <ul class="navbar-nav flex-grow-1">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-page="/Index">Home</a>
+                                    </li>
+                                </ul>
+                                <a asp-page="/Help" class="nav-link text-dark">Help</a>
+                                <a class="nav-link text-dark" asp-page="/Account/Login">Sign In</a>
+                            </div>
+                        </div>
+                    </nav>*@
+                    <!-- Mobile Nav -->
+                    @*<nav class="navbar navbar-expand-lg navbar-light fixed-bottom d-block d-sm-none" style="background-color: rgba(235,235,235,1);">
+                        <div class="navbar-nav">
+                            <ul class="nav nav-fill text-dark">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-page="/Index"><i class="fas fa-home fa-lg"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-page="/Help" class="nav-link text-dark"><i class="fas fa-question fa-lg"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-page="/Account/Login" class="nav-link text-dark"><i class="fas fa-sign-in-alt fa-lg"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>*@
+                }
+            </header>
+
+            <main class="mx-auto">
+                @*<partial name="_StatusMessage" />*@
+                @RenderBody()
+            </main>
+
+        </div>
+
+        <footer class="fixed bottom-0 left-0 right-0 max-w-full bg-orange-200">
+            <div class="bg-orange-200">
+                <nav id="footer-nav" class="text-center bg-orange-900 h-14 flex items-center lg:hidden">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="flex justify-around font-button font-bold text-2xl text-orange-500 px-6 mx-auto">
+                            <a class="flex-none px-2 py-2 m-2 font-button font-bold text-orange-500 cursor-pointer" asp-page="/Student/Dashboard">
+                                DB
+                            </a>
+                            <a class="flex-none px-2 py-2 m-2 font-button font-bold text-orange-500 cursor-pointer" asp-page="/Student/Library">
+                                LB
+                            </a>
+                            <a class="flex-none px-2 py-2 m-2 font-button font-bold text-orange-500 cursor-pointer" asp-page="/Help">
+                                HP
+                            </a>
+                            <a class="flex-none px-2 py-2 m-2 font-button font-bold text-orange-500 cursor-pointer" asp-page="/Student/Profile">
+                                PF
+                            </a>
                             @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "instructor".ToLower()))
                             {
-                                <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
-                                        Instructor
-                                    </a>
-                                    <div class="dropdown-menu">
-                                        <a asp-page="/Instructor/UploadAudio" class="dropdown-item">Upload Audio</a>
-                                        <a asp-page="/Instructor/ContentList" class="dropdown-item">List Content</a>
-                                        <a asp-page="/Instructor/Profile" class="dropdown-item">Profile</a>
-                                        <a asp-page="/Instructor/InviteStudent" class="dropdown-item">Invite Students</a>
-                                    </div>
-                                </li>
+                                <a id="mobile_in_icon" class="flex-none px-2 py-2 m-2 font-button font-bold text-orange-500 cursor-pointer">
+                                    IN
+                                </a>
                             }
                             @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "admin".ToLower()))
                             {
-                                <li class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">Admin</a>
-                                    <div class="dropdown-menu">
-                                        <a asp-page="/Admin/ManageProfiles" class="dropdown-item">Manage Profiles</a>
-                                        <a asp-page="/Admin/InviteInstructor" class="dropdown-item">Invite Instructor</a>
-                                    </div>
-                                </li>
+                                <a id="mobile_ad_icon" class="flex-none px-2 py-2 m-2 font-button font-bold text-orange-500 cursor-pointer">
+                                    AD
+                                </a>
                             }
-                        </ul>
-                            <a asp-page="/Help" class="nav-link text-dark">Help</a>
-                            <form asp-page="/Account/Logout" class="form-inline">
-                                <button class="btn btn-link text-dark">Sign Out</button>
-                            </form>
                         </div>
-                </div>
-            </nav>
+                        <div id="mobile_in_menu" class="absolute hidden right-0 text-right -mt-76 bg-orange-800 px-10 py-2 rounded-large shadow-sm font-button font-bold text-2xl text-orange-500">
+                            <ul>
+                                <li class="px-4 py-2 my-2">
+                                    <a class="font-button font-bold text-orange-500" asp-page="/Instructor/UploadAudio">Upload Audio</a>
+                                </li>
+                                <li class="px-4 py-2 my-2">
+                                    <a class="font-button font-bold text-orange-500" asp-page="/Instructor/ContentList">List Content</a>
+                                </li>
+                                <li class="px-4 py-2 my-2">
+                                    <a class="font-button font-bold text-orange-500" asp-page="/Instructor/Profile">Profile</a>
+                                </li>
+                                <li class="px-4 py-2 my-2">
+                                    <a class="font-button font-bold text-orange-500" asp-page="/Instructor/InviteStudent">Invite Students</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="mobile_ad_menu" class="absolute hidden right-0 text-right -mt-48 bg-orange-800 px-10 py-2 rounded-large shadow-sm font-button font-bold text-2xl text-orange-500">
+                            <ul>
+                                <li class="px-4 py-2 my-2">
+                                    <a class="font-button font-bold text-orange-500" asp-page="/Admin/ManageProfiles">Manage Profiles</a>
+                                </li>
+                                <li class="px-4 py-2 my-2">
+                                    <a class="font-button font-bold text-orange-500" asp-page="/Admin/InviteInstructor">Invite Instructor</a>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                        <a asp-page="./Help" class="font-button font-semibold text-xl text-orange-600 mx-auto">
+                            learn more
+                        </a>
+                    }
 
-            <!-- Mobile Nav -->
-            <nav class="navbar navbar-expand-lg navbar-light fixed-bottom d-block d-sm-none" style="background-color: rgba(235,235,235,1);">
-                <div class="navbar-nav">
-                    <ul class="nav nav-fill text-dark">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Student/Dashboard"><i class="fas fa-home fa-lg"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Student/Library"><i class="fas fa-list-ul fa-lg"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Student/Profile"><i class="fas fa-user fa-lg"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-page="/Help" class="nav-link text-dark"><i class="fas fa-question fa-lg"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <form asp-page="/Account/Logout" class="form-inline">
-                                <button class="btn btn-link text-dark"><i class="fas fa-sign-out-alt fa-lg"></i></button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        }
-        else
-        {
-            <!-- Web Nav -->
-            <nav class="navbar navbar-expand-lg navbar-light mb-3 d-none d-md-flex d-xl-flex">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-page="/Index">MPY</a>
-                    <div class="navbar-collapse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Index">Home</a>
-                            </li>
-                        </ul>
-                        <a asp-page="/Help" class="nav-link text-dark">Help</a>
-                        <a class="nav-link text-dark" asp-page="/Account/Login">Sign In</a>
-                    </div>
-                </div>
-            </nav>
-            <!-- Mobile Nav -->
-            <nav class="navbar navbar-expand-lg navbar-light fixed-bottom d-block d-sm-none" style="background-color: rgba(235,235,235,1);">
-                <div class="navbar-nav">
-                    <ul class="nav nav-fill text-dark">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Index"><i class="fas fa-home fa-lg"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-page="/Help" class="nav-link text-dark"><i class="fas fa-question fa-lg"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-page="/Account/Login" class="nav-link text-dark"><i class="fas fa-sign-in-alt fa-lg"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        }
-    </header>
-    <div class="container" style="height: 100vh">
-        <main role="main" class="pb-3">
-            <partial name="_StatusMessage" />
-            @RenderBody()
-        </main>
+                </nav>
+                <p class="font-sans text-center text-orange-900 text-xs my-2 bg-orange-200">
+                    &copy; 2020 MyPractice.Yoga - Happy App Software Co.
+                </p>
+            </div>
+        </footer>
     </div>
 
-    <footer class="border-top footer text-muted d-none d-md-flex d-xl-flex">
-        <div class="container">
-            &copy; 2019 - HAS.MyPractice.Web - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    <script src="~/js/site.js" asp-append-version="true" type="module" ></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

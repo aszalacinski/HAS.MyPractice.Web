@@ -4,11 +4,29 @@
     ViewData["Title"] = "My Practice";
 }
 
-<div class="container">
-    <div class="row text-center" style="height: 90vh">
-        <div class="col my-auto">
-            <h1 class="display-4">Welcome to My Practice</h1>
-            <p>Beta v1</p>
+@*<div class="container">
+        <div class="row text-center" style="height: 90vh">
+            <div class="col my-auto">
+                <h1 class="display-4">Welcome to My Practice</h1>
+                <p>Beta v1</p>
+            </div>
         </div>
-    </div>
+    </div>*@
+<div id="hero" class="mx-auto pt-16 pr-8 rounded-large shadow-md h-152 bg-center-bottom-40 bg-110% text-right" style="background-image: url(./images/hero_50.jpg);">
+    <p class="font-title text-orange-100 leading-12 text-4xl">
+        my instructor<br />
+        my practice<br />
+        my yoga<br />
+        anywhere<br />
+        anytime
+    </p>
 </div>
+<div class="mx-auto text-center">
+    <p class="font-title text-orange-900 text-5xl">welcome</p>
+</div>
+<div class="mx-auto text-center max-w-full mt-2">
+    <a asp-page="./Account/Login" class="font-button font-semibold text-2xl bg-orange-700 hover:bg-orange-600 py-2 px-16 rounded-large text-orange-300 hover:text-orange-900">
+        sign in
+    </a>
+</div>
+<div class="mx-auto mt-8 border-solid border-t-2 border-orange-300"></div>

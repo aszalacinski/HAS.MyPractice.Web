@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -25,8 +26,13 @@ namespace HAS.MyPractice.Web.Pages
 
         public string TestSecret { get; set; }
 
-        public async Task OnGet()
+        public async Task<IActionResult> OnGet()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToPage("./Student/Dashboard");
+            }
+
             Token = await HttpContext.GetTokenAsync("access_token");
 
             var cookie = HttpContext.Request.Cookies[_cookieName];
@@ -36,7 +42,7 @@ namespace HAS.MyPractice.Web.Pages
                 CookieOutput = await _mediator.Send(new DataProtectDecryptCommand(cookie));
             }
 
-
+            return Page();
         }
 
     }
