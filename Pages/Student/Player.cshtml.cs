@@ -29,7 +29,9 @@ namespace HAS.MyPractice.Web.Pages.Student
                 Description = media.ContentDetails.Description,
                 Uri = media.Uri.ToString(),
                 Title = media.ContentDetails.Title,
-                Id = media.Id
+                Id = media.Id,
+                FileType = media.FileType,
+                RecordingDate = media.RecordingDate
             };
         }
 
@@ -40,6 +42,8 @@ namespace HAS.MyPractice.Web.Pages.Student
             public string Author { get; set; }
             public string Description { get; set; }
             public string Uri { get; set; }
+            public string FileType { get; set; }
+            public DateTime RecordingDate { get; set; }
         }
 
     }
