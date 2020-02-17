@@ -4,109 +4,144 @@
 
     ViewData["Title"] = "My Practice";
 }
-
-<div class="row">
-    <div class="col">
-        <form method="post" enctype="multipart/form-data">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Content Edit</h3>
-                    <small>Media ID# @Model.Data.Id</small>
-                </div>
-                <div class="card-body">
-                    <div class="row mt-2">
-                        <div class="col text-center">
-                            <div class="mt-2" style="width:100%">
-                                <img src="~/images/fpo.png" width="300">
-                            </div>
-                            <div class="audioContainer">
-                                <audio id="player" controls>
-                                    <source src="@Model.Data.Url" type="audio/mp4" />
-                                </audio>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="Data.FirstName"></label>
-                                <input asp-for="Data.FirstName" placeholder="Author First Name" class="form-control" disabled />
-                                <span asp-validation-for="Data.FirstName" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="Data.LastName"></label>
-                                <input asp-for="Data.LastName" placeholder="Author Last Name" class="form-control" disabled />
-                                <span asp-validation-for="Data.LastName" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="form-group">
-                                <label asp-for="Data.Title"></label>
-                                <input asp-for="Data.Title" placeholder="Content Title" class="form-control" />
-                                <span asp-validation-for="Data.Title" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label asp-for="Data.Duration"></label>
-                                <input asp-for="Data.Duration" placeholder="Duration" class="form-control" />
-                                <span asp-validation-for="Data.Duration" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="Data.Description"></label>
-                                <textarea asp-for="Data.Description" class="form-control"></textarea>
-                                <span asp-validation-for="Data.Description" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <input type="hidden" asp-for="Data.ProfileId" />
-                    <input type="hidden" asp-for="Data.Id" />
-                    <button type="submit" class="btn btn-primary" asp-page-handler="Edit">Submit Changes</button>
-                    <a asp-page="ContentList" class="btn btn-secondary">Cancel</a>
-                </div>
-            </div>
-        </form>
+    <div>
+        <div class="-mt-8">
+            <p class="font-title text-orange-900 text-5xl">edit</p>
+        </div>
+        <div class="-mt-6 ml-10">
+            <p class="font-heading text-4xl italic font-light text-orange-900">@Model.Data.FileType content</p>
+        </div>
     </div>
-</div>
+    <div>
+        <div class="mt-8 max-w-screen">
+            <a asp-page="./ContentList" class="font-button font-semibold text-2xl bg-orange-700 hover:bg-orange-600 py-2 px-16 rounded-large text-orange-300 hover:text-orange-900 shadow-md">
+                back
+            </a>
+        </div>
+        <div class="mt-20">
+            <div class="mt-2 px-3">
+                <audio id="player" controls>
+                    <source src="@Model.Data.Url" type="audio/mp4" />
+                </audio>
+            </div>
+            <div class="mt-6">
+                <form method="post">
+                    <div class="flex items-center">
+                        <div class="w-1/5">
+                            <label class="block text-orange-600 font-bold text-right mb-0 pr-4 leading-none">Id#</label>
+                        </div>
+                        <div class="block text-orange-600 font-normal">@Model.Data.Id</div>
+                    </div>
+                    <div asp-validation-summary="All" class="font-sans text-red-600 mb-6"></div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-1/5">
+                            <label asp-for="Data.Title" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4 leading-none">Title</label>
+                        </div>
+                        <div class="w-4/5">
+                            <input asp-for="Data.Title" placeholder="Author First Name" class="bg-orange-100 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm focus:text-orange-500 focus:outline-none focus:bg-white focus:border-orange-500" />
+                        </div>
+                        <span asp-validation-for="Data.Title" class="font-sans text-red-600"></span>
+                    </div>
+                    <div class="flex-col mb-6">
+                        <div class="flex items-center">
+                            <div class="w-1/5">
+                                <label asp-for="Data.Duration" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4 leading-none">Duration (in min)</label>
+                            </div>
+                            <div class="w-4/5">
+                                <input type="number" asp-for="Data.Duration" class="bg-orange-100 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm focus:text-orange-500 focus:outline-none focus:bg-white focus:border-orange-500" />
+                            </div>
+
+                        </div>
+                        <span asp-validation-for="Data.Duration" class="font-sans text-red-600"></span>
+                    </div>
+                    <div class="flex-col mb-6">
+                        <div class="flex items-center">
+                            <div class="w-1/5 break-words">
+                                <label asp-for="Data.Description" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4 leading-none">Description</label>
+                            </div>
+                            <div class="w-4/5">
+                                <textarea asp-for="Data.Description" rows="4" class="bg-orange-100 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm focus:text-orange-500 focus:outline-none focus:bg-white focus:border-orange-500"></textarea>
+                            </div>
+
+                        </div>
+                        <span asp-validation-for="Data.Description" class="font-sans text-red-600"></span>
+                    </div>
+                    <div class="flex">
+                        <div class="w-1/2">
+                            <a asp-page="ContentList" class="inline-block font-button font-semibold text-base bg-orange-700 hover:bg-orange-600 py-2 px-8 rounded-large text-orange-300 hover:text-orange-900 shadow-md">cancel</a>
+                        </div>
+                    <div class="right-0 left-0 text-right">
+                        <input type="hidden" asp-for="Data.ProfileId" />
+                        <input type="hidden" asp-for="Data.Id" />
+                        <button type="submit" class="font-button font-semibold text-2xl bg-orange-700 hover:bg-orange-600 py-2 px-16 rounded-large text-orange-300 hover:text-orange-900"  asp-page-handler="Edit">update</button>
+
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @section Styles
 {
     <link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css" />
     <style>
         .audioContainer {
-            margin: 25px auto;
-            max-width: 300px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
+	    margin: 25px auto;
+	    max-width: 300px;
+	    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .mediaDetails a, 
+    .mediaDetails a:link, 
+    .mediaDetails a:visited, 
+    .mediaDetails a:hover {
+        color: #343a40 !important;
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .plyr--full-ui input[type="range"] {
+        color: #7B341E !important;
+    }
+    .plyr--audio .plyr__controls {
+        background: #FBD38D !important;
+        border-radius: 12px !important;
+	    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+        border-style: solid !important;
+        border-width: 2px !important;
+        border-color: #F6AD55 !important;
+    }
 
-        .mediaDetails a,
-        .mediaDetails a:link,
-        .mediaDetails a:visited,
-        .mediaDetails a:hover {
-            color: #343a40 !important;
-            font-weight: 600;
-            text-decoration: none;
-        }
+    .plyr__controls {
+        justify-content: center !important;
+    }
 
-        .plyr__controls {
-            justify-content: center !important;
-        }
+    .plyr__controls {
+        color: #7B341E !important;
+    }
 
-        .plyr__volume {
-            flex: auto;
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 30%;
-        }
+    .plyr__volume {
+        flex: auto;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 30%;
+    }
+
+    .plyr--audio .plyr__control.plyr__tab-focus, .plyr--audio .plyr__control:hover, .plyr--audio .plyr__control[aria-expanded="true"] {
+        background: #C05621 !important;
+        color: #FBD38D !important;  
+    }
+
+    .plyr__control.plyr__tab-focus {
+        box-shadow: 0 0 0 5px rgba(237,137,54,100); 
+    }
+
+    .plyr--full-ui.plyr--audio input[type="range"]::-moz-range-track {
+        background-color: #F6AD55 !important;
+    }
+
+    .plyr--full-ui input[type="range"].plyr__tab-focus::-moz-range-track {
+        box-shadow: 0 0 0 5px rgba(237,137,54,100); 
+    }
     </style>
 }
 @section Scripts

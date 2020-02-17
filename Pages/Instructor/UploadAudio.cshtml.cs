@@ -45,22 +45,16 @@ namespace HAS.MyPractice.Web.Pages.Instructor
 
         public class Command : IRequest<string>
         {
-            [Required]
             public string InstructorId { get; set; }
-            [Required]
             [Display(Name = "Author First Name")]
             public string FirstName { get; set; }
-            [Required]
             [Display(Name = "Author Last Name")]
             public string LastName { get; set; }
-            [Required]
             [Display(Name = "Title")]
             public string Title { get; set; }
-            [Required]
             [Display(Name = "Duration")]
             public int DurationInMinutes { get; set; }
 
-            [Required]
             [Display(Name = "Content File")]
             public IFormFile File { get; set; }
 
@@ -70,10 +64,15 @@ namespace HAS.MyPractice.Web.Pages.Instructor
 
         public async Task<IActionResult> OnPostAsync()
         {
-            Data.AccessToken = await HttpContext.GetTokenAsync("access_token");
-            var mediaId = await _mediator.Send(Data);
+            if(ModelState.IsValid)
+            {
+                Data.AccessToken = await HttpContext.GetTokenAsync("access_token");
+                var mediaId = await _mediator.Send(Data);
 
-            return Redirect($"./ContentEdit?c={mediaId}");
+                return Redirect($"./ContentEdit?c={mediaId}");
+            }
+
+            return Page();
         }
 
         public class Validator : AbstractValidator<Command>
@@ -85,7 +84,7 @@ namespace HAS.MyPractice.Web.Pages.Instructor
                 RuleFor(m => m.LastName).NotEmpty().Length(1, 50);
                 RuleFor(m => m.Title).NotEmpty().Length(1, 100);
                 RuleFor(m => m.DurationInMinutes).GreaterThan(0);
-                RuleFor(m => m.File).NotEmpty();
+                RuleFor(m => m.File).NotNull();
             }
         }
 

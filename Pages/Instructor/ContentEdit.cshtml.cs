@@ -56,7 +56,7 @@ namespace HAS.MyPractice.Web.Pages.Instructor
             Data = new EditModelCommand
             {
                 Description = media.ContentDetails.Description,
-                Duration = media.ContentDetails.Duration,
+                Duration = (media.ContentDetails.Duration / 1000 / 60),
                 FileExtension = media.FileExtension,
                 FileName = media.FileName,
                 FileSize = media.ContentDetails.Size,
@@ -83,8 +83,6 @@ namespace HAS.MyPractice.Web.Pages.Instructor
             public Validator()
             {
                 RuleFor(m => m.Id).NotEmpty();
-                RuleFor(m => m.FirstName).NotEmpty().Length(1, 50);
-                RuleFor(m => m.LastName).NotEmpty().Length(1, 50);
                 RuleFor(m => m.Title).NotEmpty().Length(1, 100);
                 RuleFor(m => m.Duration).GreaterThan(0);
                 RuleFor(m => m.Description).NotEmpty();

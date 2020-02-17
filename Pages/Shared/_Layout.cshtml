@@ -11,7 +11,7 @@
 </head>
 <body class="bg-orange-200 mb-0 subpixel-antialiased">
     <div class="static mx-auto md-bg-orange-400 max-w-full">
-        <div id="app" class="px-6 pt-6">
+        <div id="app" class="px-6 pt-6 md:max-w-screen-md md:mx-auto">
             <header>
                 @if (User.Identity.IsAuthenticated)
                 {
@@ -126,8 +126,8 @@
                 }
             </header>
 
-            <main class="mx-auto">
-                @*<partial name="_StatusMessage" />*@
+            <main class="mx-auto pb-32">
+                <partial name="_StatusMessage" />
                 @RenderBody()
             </main>
 
@@ -135,7 +135,7 @@
 
         <footer class="fixed bottom-0 left-0 right-0 max-w-full bg-orange-200">
             <div class="bg-orange-200">
-                <nav id="footer-nav" class="text-center bg-orange-900 h-14 flex items-center lg:hidden">
+                <nav id="footer-nav" class="text-center bg-orange-900 h-14 flex items-center">
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div class="flex justify-around font-button font-bold text-2xl text-orange-500 px-6 mx-auto">
@@ -164,7 +164,7 @@
                                 </a>
                             }
                         </div>
-                        <div id="mobile_in_menu" class="absolute hidden right-0 text-right -mt-76 bg-orange-800 px-10 py-2 rounded-large shadow-sm font-button font-bold text-2xl text-orange-500">
+                        <div id="mobile_in_menu" class="absolute hidden right-0 text-right -mt-76 bg-orange-800 px-10 py-2 rounded-large shadow-sm font-button font-bold text-2xl text-orange-500 mr-10 sm:mr-24 md:mr-64 lg:mr-76 xl:mr-110 hd:mr-170">
                             <ul>
                                 <li class="px-4 py-2 my-2">
                                     <a class="font-button font-bold text-orange-500" asp-page="/Instructor/UploadAudio">Upload Audio</a>
@@ -180,7 +180,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div id="mobile_ad_menu" class="absolute hidden right-0 text-right -mt-48 bg-orange-800 px-10 py-2 rounded-large shadow-sm font-button font-bold text-2xl text-orange-500">
+                        <div id="mobile_ad_menu" class="absolute hidden right-0 text-right -mt-48 bg-orange-800 px-10 py-2 rounded-large shadow-sm font-button font-bold text-2xl text-orange-500 mr-10 sm:mr-24 md:mr-64 lg:mr-76 xl:mr-110 hd:mr-170">
                             <ul>
                                 <li class="px-4 py-2 my-2">
                                     <a class="font-button font-bold text-orange-500" asp-page="/Admin/ManageProfiles">Manage Profiles</a>

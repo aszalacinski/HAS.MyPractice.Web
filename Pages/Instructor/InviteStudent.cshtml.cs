@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
@@ -30,14 +31,16 @@ namespace HAS.MyPractice.Web
         public class CommandResult
         {
             public string Email { get; set; }
+            [Display(Name = "First Name")]
             public string FirstName { get; set; }
+            [Display(Name = "Last Name")]
             public string LastName { get; set; }
             public string InstructorId { get; set; }
             public string InstructorName { get; set; }
             public string InstructorPublicName { get; set; }
+            public IEnumerable<InvitedUser> Pending { get; set; }
         }
 
-        public IEnumerable<InvitedUser> Pending { get; set; }
 
         public async Task OnGet()
         {
@@ -51,7 +54,7 @@ namespace HAS.MyPractice.Web
                 InstructorName = $"{profile.PersonalDetails.FirstName} {profile.PersonalDetails.LastName}"
             };
 
-            Pending = await _mediator.Send(new GetAllPendingStudentInvitesByInstructorQuery(profile.Id));
+            Data.Pending = await _mediator.Send(new GetAllPendingStudentInvitesByInstructorQuery(profile.Id));
         }
 
         public class Validator : AbstractValidator<CommandResult>

@@ -3,61 +3,68 @@
 @{
     ViewData["Title"] = "Profile";
 }
-
-    <div class="row">
-        <div class="col">
+    <div>
+        <div class="-mt-8">
+            <p class="font-title text-orange-900 text-5xl">instructor</p>
+        </div>
+        <div class="-mt-6 ml-10">
+            <p class="font-heading text-4xl italic font-light text-orange-900">edit profile</p>
+        </div>
+    </div>
+    <div class="bg-orange-300 border-orange-400 border-2 border-solid px-4 py-6 rounded-large">
+        <div>
+            <h1 class="font-heading font-light text-xl text-orange-900">update your profile details</h1>
+            <p class="leading-none font-sans text-orange-900 mt-2 text-sm">Fill out your personal details below to maximize the mypractice.yoga experience.</p>
+        </div>
+        <div class="mt-6">
             <form method="post">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Update your instructor profile details</h3>
-                        <small>Fill out your instructor profile details below to maximize the mypractice.yoga instructor experience</small>
-                    </div>
-                    <div class="card-body">
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                        <div class="row mt-2">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="Model.Email"></label>
-                                    <input asp-for="Model.Email" placeholder="Your Email" class="form-control" readonly />
-                                </div>
-                            </div>
+                <div>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-1/5">
+                            <label asp-for="Model.Email" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4"></label>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="Model.FirstName"></label>
-                                    <input asp-for="Model.FirstName" placeholder="Your First Name" class="form-control" />
-                                    <span asp-validation-for="Model.FirstName" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="Model.LastName"></label>
-                                    <input asp-for="Model.LastName" placeholder="Your Last Name" class="form-control" />
-                                    <span asp-validation-for="Model.LastName" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="Model.ScreenName"></label>
-                                    <input asp-for="Model.ScreenName" placeholder="Your Screen name" class="form-control" readonly />
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label asp-for="Model.PublicName"></label>
-                                    <input asp-for="Model.PublicName" placeholder="Your Public name" class="form-control" readonly />
-                                    <small>This is the name that is used to allow students to register for your class.</small>
-                                    <span asp-validation-for="Model.LastName" class="text-danger"></span>
-                                </div>
-                            </div>
+                        <div class="w-4/5">
+                            <input asp-for="Model.Email" placeholder="Your Email" class="bg-gray-200 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm" readonly />
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="flex items-center mb-6">
+                        <div class="w-1/5">
+                            <label asp-for="Model.FirstName" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4 leading-none"></label>
+                        </div>
+                        <div class="w-4/5">
+                            <input asp-for="Model.FirstName" placeholder="Your Email" class="bg-orange-100 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm focus:text-orange-500 focus:outline-none focus:bg-white focus:border-orange-500" />
+                        </div>
+                        <span asp-validation-for="Model.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-1/5">
+                            <label asp-for="Model.LastName" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4 leading-none"></label>
+                        </div>
+                        <div class="w-4/5">
+                            <input asp-for="Model.LastName" placeholder="Your Email" class="bg-orange-100 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm focus:text-orange-500 focus:outline-none focus:bg-white focus:border-orange-500" />
+                        </div>
+                        <span asp-validation-for="Model.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-1/5">
+                            <label asp-for="Model.ScreenName" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4 leading-none"></label>
+                        </div>
+                        <div class="w-4/5">
+                            <input asp-for="Model.ScreenName" placeholder="Your Email" class="bg-gray-200 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm" readonly />
+                        </div>
+                    </div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-1/5">
+                            <label asp-for="Model.PublicName" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4"></label>
+                        </div>
+                        <div class="w-4/5">
+                            <input asp-for="Model.PublicName" placeholder="Your Email" class="bg-gray-200 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm" readonly />
+                        </div>
+                    </div>
+                    <div class="right-0 left-0 text-right">
                         <input type="hidden" asp-for="Model.ProfileId" />
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="font-button font-semibold text-2xl bg-orange-700 hover:bg-orange-600 py-2 px-16 rounded-large text-orange-300 hover:text-orange-900">update</button>
                     </div>
                 </div>
             </form>
