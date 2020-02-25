@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Threading.Tasks;
 using static HAS.MyPractice.ObtainAllSubscribedMedia;
 
 namespace HAS.MyPractice.Web.Pages.Student
@@ -29,7 +26,8 @@ namespace HAS.MyPractice.Web.Pages.Student
                     .ForMember(m => m.Author, opt => opt.MapFrom(src => src.InstructorName))
                     .ForMember(m => m.Duration, opt => opt.MapFrom(src => src.ContentDetails.Duration))
                     .ForMember(m => m.Id, opt => opt.MapFrom(src => src.Id))
-                    .ForMember(m => m.Title, opt => opt.MapFrom(src => src.ContentDetails.Title));
+                    .ForMember(m => m.Title, opt => opt.MapFrom(src => src.ContentDetails.Title))
+                    .ForMember(m => m.Date, opt => opt.MapFrom(src => src.RecordingDate));
             });
         }
 
@@ -50,6 +48,7 @@ namespace HAS.MyPractice.Web.Pages.Student
             public long Duration { get; set; }
             public string Title { get; set; }
             public string Author { get; set; }
+            public DateTime Date { get; set; }
         }
 
     }

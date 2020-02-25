@@ -1,0 +1,36 @@
+﻿@page
+@model HAS.MyPractice.Web.ListStudentsModel
+@{
+    ViewData["Title"] = "Enrolled Students";
+}
+
+<div>
+    <div class="-mt-8">
+        <p class="font-title text-orange-900 text-5xl">instructor</p>
+    </div>
+    <div class="-mt-6 ml-10">
+        <p class="font-heading text-4xl italic font-light text-orange-900">current students</p>
+    </div>
+</div>
+<div class="flex-col mt-6">
+    <div class="font-heading text-orange-900 font-semibold text-xl text-center">
+        Current Students
+    </div>
+    <ul>
+        @foreach (var member in Model.Data.Students)
+        {
+            if(member.Id == Model.Data.InstructorId)
+            {
+                continue;
+            }
+
+            <li class="mt-6 rounded-large shadow-md bg-orange-300 border border-solid border-orange-400 py-2 px-2">
+                <div class="font-sans font-light text-base text-orange-800">
+                    <div><span class="font-semibold">@member.PersonalDetails.FirstName @member.PersonalDetails.LastName</span> joined on <span class="font-semibold italic">@member.JoinDate.ToString("yyyy-MM-dd")</span></div>
+                    <div>email: <span class="font-semibold italic">@member.PersonalDetails.Email</span></div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
+

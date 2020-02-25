@@ -3,8 +3,94 @@
 @{
     ViewData["Title"] = "My Practice";
 }
+<div>
+    <div class="-mt-8">
+        <p class="font-title text-orange-900 text-5xl">list</p>
+    </div>
+    <div class="-mt-6 ml-10">
+        <p class="font-heading text-4xl italic font-light text-orange-900">current content upload</p>
+    </div>
+</div>
+<ul class="flex mt-4">
+    <li class="mr-3">
+        <a id="publishedButton" class="font-button font-semibold text-xl bg-orange-700 hover:bg-orange-600 py-2 px-8 rounded-large text-orange-300 hover:text-orange-900 shadow-md" href="#">published</a>
+    </li>
+    <li class="mr-3">
+        <a id="unpublishedButton" class="font-button font-semibold text-xl bg-orange-600 hover:bg-orange-700 py-2 px-8 rounded-large text-orange-500 hover:text-orange-300 shadow-md" href="#">unpublished</a>
+    </li>
+</ul>
+<div id="published-content">
+    <ul>
+    @foreach(var file in Model.Data.Shared)
+    {
+        <li class="mt-6 rounded-large shadow-md bg-orange-300 border border-solid border-orange-400 py-2 px-2">
+            <div class="flex items-center">
+                <div class="w-1/2">
+                    <div class="font-heading text-lg font-semibold text-orange-900">@file.ContentDetails.Title</div>
+                    <div class="font-heading text-sm italic font-light text-orange-900">@file.FileType @file.Id</div>
+                    <div class="font-heading text-sm italic font-light text-orange-900">recorded on: @file.RecordingDate.ToShortDateString()</div>
+                </div>
+                <div class="flex-col w-1/2 text-right">
+                    <div class="inline-block ">
+                        <form method="post">
+                            <input type="hidden" asp-for="@Model.Data.HubId" name="hubId" />
+                            <input type="hidden" asp-for="@Model.Data.LibraryId" name="libraryId" />
+                            <input type="hidden" asp-for="@file.Id" name="fileId" />
+                            <button type="submit" class="font-button font-semibold text-base bg-orange-700 hover:bg-orange-600 py-2 px-8 rounded-large text-orange-300 hover:text-orange-900 shadow-md" asp-page-handler="Remove">unpublish</button>
+                        </form>
+                    </div>
+                    <div class="mt-2">
+                        @{
+                            var d = new Dictionary<string, string>
+                                                                                                {
+                            { "c", file.Id }
+                        };
+                        }
+                        <a asp-page="/Instructor/ContentEdit" asp-all-route-data="d" class="inline-block font-button font-semibold text-base bg-orange-700 hover:bg-orange-600 py-2 px-8 rounded-large text-orange-300 hover:text-orange-900 shadow-md">edit</a>
 
-<div class="row">
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+    </ul>
+</div>
+<div id="unpublished-content" class="hidden">
+    <ul>
+        @foreach (var file in Model.Data.NotShared)
+        {
+            <li class="mt-6 rounded-large shadow-md bg-orange-300 border border-solid border-orange-400 py-2 px-2">
+                <div class="flex items-center">
+                    <div class="w-1/2">
+                        <div class="font-heading text-lg font-semibold text-orange-900">@file.ContentDetails.Title</div>
+                        <div class="font-heading text-sm italic font-light text-orange-900">@file.FileType @file.Id</div>
+                        <div class="font-heading text-sm italic font-light text-orange-900">recorded on: @file.RecordingDate.ToShortDateString()</div>
+                    </div>
+                    <div class="flex-col w-1/2 text-right">
+                        <form method="post" class="inline-block ">
+                            <input type="hidden" asp-for="@Model.Data.HubId" name="hubId" />
+                            <input type="hidden" asp-for="@Model.Data.LibraryId" name="libraryId" />
+                            <input type="hidden" asp-for="@file.Id" name="fileId" />
+                            <button type="submit" class="font-button font-semibold text-base bg-orange-700 hover:bg-orange-600 py-2 px-8 rounded-large text-orange-300 hover:text-orange-900 shadow-md" asp-page-handler="Move">publish</button>
+                        </form>
+                        <div class="mt-2">
+                            @{
+                                var d = new Dictionary<string, string>
+                                                                                                                {
+                            { "c", file.Id }
+                        };
+                            }
+                            <a asp-page="/Instructor/ContentEdit" asp-all-route-data="d" class="inline-block font-button font-semibold text-base bg-orange-700 hover:bg-orange-600 py-2 px-8 rounded-large text-orange-300 hover:text-orange-900 shadow-md">edit</a>
+
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
+
+@*<div class="row">
     <div class="col">
         <h3>List of Current Content Upload</h3>
     </div>
@@ -32,7 +118,7 @@
                             <td>
                                 @{
                                     var d = new Dictionary<string, string>
-                                                        {
+                                                                            {
                                         { "c", file.Id }
                                     };
                                 }
@@ -89,7 +175,7 @@
                                     <input type="hidden" asp-for="@Model.Data.HubId" name="hubId" />
                                     <input type="hidden" asp-for="@Model.Data.LibraryId" name="libraryId" />
                                     <input type="hidden" asp-for="@file.Id" name="fileId" />
-                                    <button type="submit" class="btn btn-primary" asp-page-handler="Remove">Remove from Default</button>
+                                    <button type="submit" class="btn btn-primary" asp-page-handler="Remove">Unpublish</button>
                                 </form>
                             </td>
                         </tr>
@@ -98,4 +184,4 @@
             </table>
         </div>
     </div>
-</div>
+</div>*@

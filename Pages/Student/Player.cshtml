@@ -3,44 +3,34 @@
 @{
     ViewData["Title"] = "Player";
 }
-<div class="container mediaDetails">
-    <div class="row">
-        <div class="col mt-3" style="color: rgba(0,0,0,.5); cursor: pointer">
-            <a asp-page="/Student/Library">
-                <i class="fas fa-angle-left fa-2x"></i>
-            </a>
-            <div class="float-right">
-                <!-- <i class="fas fa-th fa-2x mr-3"></i> -->
-                <!-- <i class="far fa-bookmark fa-2x"></i> -->
-            </div>
+    <div>
+        <div class="-mt-8">
+            <p class="font-title text-orange-900 text-5xl">@Model.Media.FileType class</p>
+        </div>
+        <div class="-mt-6 ml-10">
+            <p class="font-heading text-4xl italic font-light text-orange-900">by @Model.Media.Author.Split(' ')[0]</p>
         </div>
     </div>
-    <div class="row mt-3">
-        <div class="col text-center">
-            <h6>@Model.Media.Author</h6>
-            <h4>@Model.Media.Title</h4>
-            <!-- <span>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-            </span> -->
-            <div class="mt-2" style="width:100%">
-                <img src="~/images/fpo.png" width="300">
-            </div>
-            <div class="audioContainer">
+    <div>
+        <div class="mt-8 max-w-screen">
+            <a asp-page="./Library" class="font-button font-semibold text-2xl bg-orange-700 hover:bg-orange-600 py-2 px-16 rounded-large text-orange-300 hover:text-orange-900 shadow-md">
+                back
+            </a>
+        </div>
+        <div class="mt-20">
+            <div class="font-heading text-base italic font-light text-orange-800 px-3">recorded on @Model.Media.RecordingDate.ToShortDateString()</div>
+            <div class="mt-2 right-0 left-0 text-center font-heading text-orange-900 text-3xl font-bold leading-none">@Model.Media.Title</div>
+            <div class="mt-2 px-3">
                 <audio id="player" controls>
                     <source src="@Model.Media.Uri" type="audio/mp4" />
                 </audio>
             </div>
-            
-            <div class="text-left mt-3 mx-auto" style="width:335px">
-                <p>@Model.Media.Description</p>
+            <div class="font-sans text-base font-normal text-orange-900 mt-4 px-3 right-0 left-0">
+                @Model.Media.Description
             </div>
         </div>
     </div>
-</div>
+
 @section Styles
 {
 <link rel="stylesheet" href="https://cdn.plyr.io/3.5.6/plyr.css" />
@@ -58,8 +48,24 @@
         font-weight: 600;
         text-decoration: none;
     }
+    .plyr--full-ui input[type="range"] {
+        color: #7B341E !important;
+    }
+    .plyr--audio .plyr__controls {
+        background: #FBD38D !important;
+        border-radius: 12px !important;
+	    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2) !important;
+        border-style: solid !important;
+        border-width: 2px !important;
+        border-color: #F6AD55 !important;
+    }
+
     .plyr__controls {
         justify-content: center !important;
+    }
+
+    .plyr__controls {
+        color: #7B341E !important;
     }
 
     .plyr__volume {
@@ -68,6 +74,24 @@
         flex-shrink: 0;
         flex-basis: 30%;
     }
+
+    .plyr--audio .plyr__control.plyr__tab-focus, .plyr--audio .plyr__control:hover, .plyr--audio .plyr__control[aria-expanded="true"] {
+        background: #C05621 !important;
+        color: #FBD38D !important;  
+    }
+
+    .plyr__control.plyr__tab-focus {
+        box-shadow: 0 0 0 5px rgba(237,137,54,100); 
+    }
+
+    .plyr--full-ui.plyr--audio input[type="range"]::-moz-range-track {
+        background-color: #F6AD55 !important;
+    }
+
+    .plyr--full-ui input[type="range"].plyr__tab-focus::-moz-range-track {
+        box-shadow: 0 0 0 5px rgba(237,137,54,100); 
+    }
+
 </style>
 }
 @section Scripts
@@ -102,7 +126,6 @@
             </div>
         </div>
         `;
-
 
     // Change "{}" to your options:
     // https://github.com/sampotts/plyr/#options

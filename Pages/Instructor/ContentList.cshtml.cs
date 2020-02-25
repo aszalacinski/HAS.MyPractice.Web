@@ -30,6 +30,7 @@ namespace HAS.MyPractice.Web.Pages.Instructor
         {
             public IEnumerable<Media> All { get; set; }
             public IEnumerable<Media> Shared { get; set; }
+            public IEnumerable<Media> NotShared { get; set; }
             public string HubId { get; set; }
             public string LibraryId { get; set; }
 
@@ -44,12 +45,16 @@ namespace HAS.MyPractice.Web.Pages.Instructor
             var getAll = await _mediator.Send(new GetAllMediaByProfileIDQuery(profile.Id));
             var getShared = await _mediator.Send(new GetAllMediaInDefaultLibraryQuery(profile.Id));
 
-            Data = new QueryResult 
+            var sharedIds = getShared.Select(c => c.Id).ToList();
+            var notShared = getAll.Where(f => !sharedIds.Contains(f.Id)).ToList();
+
+            Data = new QueryResult
             {
                 HubId = hub.Id,
                 LibraryId = defaultLib.Id,
-                All = getAll,
-                Shared = getShared
+                All = getAll.OrderByDescending(x => x.RecordingDate),
+                Shared = getShared.OrderByDescending(x => x.RecordingDate),
+                NotShared = notShared.OrderByDescending(x => x.RecordingDate)
             };  
         }
 

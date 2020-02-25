@@ -3,100 +3,82 @@
 @{
     ViewData["Title"] = "Invite Students";
 }
-<div class="row">
-    <div class="col">
-        <h3>Invite Students</h3>
+
+<div>
+    <div class="-mt-8">
+        <p class="font-title text-orange-900 text-5xl">instructor</p>
+    </div>
+    <div class="-mt-6 ml-10">
+        <p class="font-heading text-4xl italic font-light text-orange-900">invite students</p>
     </div>
 </div>
-<hr />
-<div class="row">
-    <div class="col">
-        <form method="post" enctype="multipart/form-data">
-            <div class="card">
-                <div class="card-header">
-                </div>
-                <div class="card-body">
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="Data.Email"></label>
-                                <input asp-for="Data.Email" placeholder="Student Email" class="form-control" />
-                                <span asp-validation-for="Data.Email" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="Data.FirstName"></label>
-                                <input asp-for="Data.FirstName" placeholder="Student First Name" class="form-control" />
-                                <span asp-validation-for="Data.FirstName" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="Data.LastName"></label>
-                                <input asp-for="Data.LastName" placeholder="Student Last Name" class="form-control" />
-                                <span asp-validation-for="Data.LastName" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <input type="hidden" asp-for="Data.InstructorId" />
-                    <input type="hidden" asp-for="Data.InstructorName" />
-                    <input type="hidden" asp-for="Data.InstructorPublicName" />
-                    <button type="submit" class="btn btn-primary">Send</button>
-                </div>
+<div>
+    <form method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="flex items-center mb-6">
+            <div class="w-1/5">
+                <label asp-for="Data.Email" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4"></label>
             </div>
-        </form>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <div class="card">
-            <div class="card-header">
-                <h2>Pending Instructor Invites</h2>
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Entry Code</th>
-                                <th scope="col">Public Name Used</th>
-                                <th scope="col" colspan="2">Date Invited</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var member in Model.Pending)
-                            {
-                            <tr>
-                                <th scope="row">@member.FirstName @member.LastName</th>
-                                <td>@member.EmailAddress</td>
-                                <td>@member.EntryCode</td>
-                                <td>@member.InstructorPublicName</td>
-                                <td>@member.Logs.FirstOrDefault().AttemptDate.ToString("yyyy-MM-dd")</td>
-                                <td>
-                                    <form method="post">
-                                        <input type="hidden" asp-for="@member.FirstName" />
-                                        <input type="hidden" asp-for="@member.LastName" />
-                                        <input type="hidden" asp-for="@member.EmailAddress" />
-                                        <input type="hidden" asp-for="@member.EntryCode" />
-                                        <input type="hidden" asp-for="Data.InstructorName" />
-                                        <input type="hidden" asp-for="Data.InstructorPublicName" />
-                                        <input type="hidden" asp-for="Data.InstructorId" />
-                                        <button type="submit" class="btn btn-primary" asp-page-handler="ResendInvite">Resend Invite</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+            <div class="w-4/5">
+                <input asp-for="Data.Email" placeholder="Student Email" class="bg-orange-100 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm focus:text-orange-500 focus:outline-none focus:bg-white focus:border-orange-500" />
             </div>
         </div>
-    </div>
+        <div class="flex items-center mb-6">
+            <div class="w-1/5">
+                <label asp-for="Data.FirstName" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4 leading-none"></label>
+            </div>
+            <div class="w-4/5">
+                <input asp-for="Data.FirstName" placeholder="Student First Name" class="bg-orange-100 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm focus:text-orange-500 focus:outline-none focus:bg-white focus:border-orange-500" />
+            </div>
+            <span asp-validation-for="Data.FirstName" class="text-danger"></span>
+        </div>
+        <div class="flex items-center mb-6">
+            <div class="w-1/5">
+                <label asp-for="Data.LastName" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4 leading-none"></label>
+            </div>
+            <div class="w-4/5">
+                <input asp-for="Data.LastName" placeholder="Student Last Name" class="bg-orange-100 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm focus:text-orange-500 focus:outline-none focus:bg-white focus:border-orange-500" />
+            </div>
+            <span asp-validation-for="Data.LastName" class="text-danger"></span>
+        </div>
+        <div class="right-0 left-0 text-right">
+            <input type="hidden" asp-for="Data.InstructorId" />
+            <input type="hidden" asp-for="Data.InstructorName" />
+            <input type="hidden" asp-for="Data.InstructorPublicName" />
+            <button type="submit" class="font-button font-semibold text-2xl bg-orange-700 hover:bg-orange-600 py-2 px-16 rounded-large text-orange-300 hover:text-orange-900">send</button>
+        </div>
+    </form>
 </div>
-
+@if (Model.Data.Pending.Count() > 0)
+{
+    <div class="mx-auto mt-8 border-solid border-t-2 border-orange-300"></div>
+    <div class="flex-col mt-6">
+        <div class="font-heading text-orange-900 font-semibold text-xl text-center">
+            Pending Student Invites
+        </div>
+        <ul>
+            @foreach (var member in Model.Data.Pending)
+            {
+                <li class="mt-6 rounded-large shadow-md bg-orange-300 border border-solid border-orange-400 py-2 px-2">
+                    <div class="font-sans font-light text-base text-orange-800">
+                        <div><span class="font-semibold">@member.FirstName @member.LastName</span> on <span class="font-semibold italic">@member.Logs.FirstOrDefault().AttemptDate.ToString("yyyy-MM-dd")</span></div>
+                        <div>to <span class="font-semibold">@member.EmailAddress</span></div>
+                        <div>code: <span class="font-semibold">@member.EntryCode</span></div>
+                    </div>
+                    <div class="mt-3">
+                        <form method="post">
+                            <input type="hidden" asp-for="@member.FirstName" name="firstName" />
+                            <input type="hidden" asp-for="@member.LastName" name="lastName" />
+                            <input type="hidden" asp-for="@member.EmailAddress" name="emailAddress" />
+                            <input type="hidden" asp-for="@member.EntryCode" name="entryCode" />
+                            <input type="hidden" asp-for="Data.InstructorName" name="instructorName" />
+                            <input type="hidden" asp-for="Data.InstructorPublicName" name="instructorPublicName" />
+                            <input type="hidden" asp-for="Data.InstructorId" name="instructorId" />
+                            <button type="submit" class="font-button font-semibold text-base bg-orange-700 hover:bg-orange-600 py-2 px-8 rounded-large text-orange-300 hover:text-orange-900 shadow-md" asp-page-handler="ResendInvite">resend</button>
+                        </form>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}

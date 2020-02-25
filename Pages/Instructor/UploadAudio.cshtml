@@ -3,70 +3,81 @@
 @{
     ViewData["Title"] = "My Practice";
 }
-
-<div class="row">
-    <div class="col">
-        <form method="post" enctype="multipart/form-data">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Content Upload</h3>
-                    <small>Fill out the details below and select a file to upload to being managing your content.</small>
-                </div>
-                <div class="card-body">
-                    <div class="row mt-2">
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="Data.FirstName">Author First Name</label>
-                                <input asp-for="Data.FirstName" placeholder="Author First Name" class="form-control" />
-                                <span asp-validation-for="Data.FirstName" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label asp-for="Data.LastName">Author Last Name</label>
-                                <input asp-for="Data.LastName" placeholder="Author Last Name" class="form-control" />
-                                <span asp-validation-for="Data.LastName" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="form-group">
-                                <label asp-for="Data.Title">Content Title</label>
-                                <input asp-for="Data.Title" placeholder="Content Title" class="form-control" />
-                                <span asp-validation-for="Data.Title" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label asp-for="Data.DurationInMinutes">Duration (in minutes)</label>
-                                <input asp-for="Data.DurationInMinutes" placeholder="Duration" class="form-control" />
-                                <span asp-validation-for="Data.DurationInMinutes" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <label for="File">Choose a file</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="File">Upload</span>
-                                </div>
-                                <div class="custom-file">
-                                    <input asp-for="Data.File" type="file" class="custom-file-input">
-                                    <label asp-for="Data.File" class="custom-file-label">Choose a file</label>
-                                    <span asp-validation-for="Data.File" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <input type="hidden" asp-for="Data.InstructorId" />
-                    <button type="submit" class="btn btn-primary">Upload</button>
-                </div>
-            </div>
-        </form>
+    <div>
+        <div class="-mt-8">
+            <p class="font-title text-orange-900 text-5xl">upload</p>
+        </div>
+        <div class="-mt-6 ml-10">
+            <p class="font-heading text-4xl italic font-light text-orange-900">content</p>
+        </div>
     </div>
-</div>
+    <div class="bg-orange-300 border-orange-400 border-2 border-solid px-4 py-6 rounded-large">
+        <div>
+            <h1 class="font-heading font-light text-xl text-orange-900">content upload</h1>
+            <p class="leading-none font-sans text-orange-900 mt-2 text-sm">Fill out the details below and select a file to upload to being managing your content.</p>
+        </div>
+        <div class="mt-6">
+            <form method="post" enctype="multipart/form-data">
+                <div>
+                    <div asp-validation-summary="All" class="font-sans text-red-600 mb-6"></div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-1/5">
+                            <label asp-for="Data.FirstName" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4 leading-none">Author First Name</label>
+                        </div>
+                        <div class="w-4/5">
+                            <input asp-for="Data.FirstName" placeholder="Author First Name" class="bg-orange-100 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm focus:text-orange-500 focus:outline-none focus:bg-white focus:border-orange-500" />
+                        </div>
+                        <span asp-validation-for="Data.FirstName" class="font-sans text-red-600"></span>
+                    </div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-1/5">
+                            <label asp-for="Data.LastName" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4 leading-none">Author Last Name</label>
+                        </div>
+                        <div class="w-4/5">
+                            <input asp-for="Data.LastName" placeholder="Author Last Name" class="bg-orange-100 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm focus:text-orange-500 focus:outline-none focus:bg-white focus:border-orange-500" />
+                        </div>
+                        <span asp-validation-for="Data.LastName" class="font-sans text-red-600"></span>
+                    </div>
+                    <div class="flex-col mb-6">
+                        <div class="flex items-center">
+                            <div class="w-1/5">
+                                <label asp-for="Data.Title" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4 leading-none">Content Title</label>
+                            </div>
+                            <div class="w-4/5">
+                                <input asp-for="Data.Title" placeholder="Content Title" class="bg-orange-100 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm focus:text-orange-500 focus:outline-none focus:bg-white focus:border-orange-500" />
+                            </div>
+                        </div>
+                        <span asp-validation-for="Data.Title" class="font-sans text-red-600"></span>
+                    </div>
+                    <div class="flex-col mb-6">
+                        <div class="flex items-center">
+                            <div class="w-1/5">
+                                <label asp-for="Data.DurationInMinutes" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4 leading-none">Duration (in min)</label>
+                            </div>
+                            <div class="w-4/5">
+                                <input type="number" asp-for="Data.DurationInMinutes" class="bg-orange-100 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm focus:text-orange-500 focus:outline-none focus:bg-white focus:border-orange-500" />
+                            </div>
+
+                        </div>
+                        <span asp-validation-for="Data.DurationInMinutes" class="font-sans text-red-600"></span>
+                    </div>
+                    <div class="flex-col mb-6">
+                        <div class="flex items-center">
+                            <div class="w-1/5">
+                                <label asp-for="Data.File" class="block text-orange-600 font-bold text-right mb-1 mb-0 pr-4 leading-none">Upload</label>
+                            </div>
+                            <div class="w-4/5">
+                                <input type="file" asp-for="Data.File" class="bg-orange-100 appearance-none border-2 border-gray-300 rounded w-full py-2 px-4 text-gray-500 leading-tight rounded-lg shadow-sm focus:text-orange-500 focus:outline-none focus:bg-white focus:border-orange-500" />
+                            </div>
+                        </div>
+                        <span asp-validation-for="Data.File" class="font-sans text-red-600"></span>
+                    </div>
+                    <div class="right-0 left-0 text-right">
+                        <input type="hidden" asp-for="Data.InstructorId" />
+                        <button type="submit" class="font-button font-semibold text-2xl bg-orange-700 hover:bg-orange-600 py-2 px-16 rounded-large text-orange-300 hover:text-orange-900">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
