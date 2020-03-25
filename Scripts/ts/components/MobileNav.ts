@@ -20,8 +20,13 @@ export class MobileNav {
     }
 
     configure() {
-        this.instructorIcon.addEventListener('click', () => {this.showMenuHandler(this.instructorMenu);}, false);
-        this.adminIcon.addEventListener('click', () => { this.showMenuHandler(this.adminMenu) }, false);
+        if (this.instructorIcon != null && this.instructorMenu != null) {
+            this.instructorIcon.addEventListener('click', () => { this.showMenuHandler(this.instructorMenu); }, false);
+        }
+
+        if (this.adminIcon != null && this.adminMenu != null) {
+            this.adminIcon.addEventListener('click', () => { this.showMenuHandler(this.adminMenu) }, false);
+        }
     }
 
     @AutoBind

@@ -12,119 +12,6 @@
 <body class="bg-orange-200 mb-0 subpixel-antialiased">
     <div class="static mx-auto md-bg-orange-400 max-w-full">
         <div id="app" class="px-6 pt-6 md:max-w-screen-md md:mx-auto">
-            <header>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <!-- Web Nav -->
-                    @*<nav class="navbar navbar-expand-lg navbar-light mb-3 d-none d-md-flex d-xl-flex">
-                        <div class="container">
-                            <a class="navbar-brand" asp-page="/Index">MPY</a>
-                            <div class="navbar-collapse collapse justify-content-end">
-                                <ul class="navbar-nav flex-grow-1">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-page="/Student/Dashboard">Home</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-page="/Student/Library">Library</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-page="/Student/Profile">Profile</a>
-                                    </li>
-                                </ul>
-                                <ul class="navbar-nav flex-grow-1 justify-content-end">
-                                    @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "instructor".ToLower()))
-                                    {
-                                        <li class="nav-item dropdown">
-                                            <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">
-                                                Instructor
-                                            </a>
-                                            <div class="dropdown-menu">
-                                                <a asp-page="/Instructor/UploadAudio" class="dropdown-item">Upload Audio</a>
-                                                <a asp-page="/Instructor/ContentList" class="dropdown-item">List Content</a>
-                                                <a asp-page="/Instructor/Profile" class="dropdown-item">Profile</a>
-                                                <a asp-page="/Instructor/InviteStudent" class="dropdown-item">Invite Students</a>
-                                            </div>
-                                        </li>
-                                    }
-                                    @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "admin".ToLower()))
-                                    {
-                                        <li class="nav-item dropdown">
-                                            <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown">Admin</a>
-                                            <div class="dropdown-menu">
-                                                <a asp-page="/Admin/ManageProfiles" class="dropdown-item">Manage Profiles</a>
-                                                <a asp-page="/Admin/InviteInstructor" class="dropdown-item">Invite Instructor</a>
-                                            </div>
-                                        </li>
-                                    }
-                                </ul>
-                                    <a asp-page="/Help" class="nav-link text-dark">Help</a>
-                                    <form asp-page="/Account/Logout" class="form-inline">
-                                        <button class="btn btn-link text-dark">Sign Out</button>
-                                    </form>
-                                </div>
-                        </div>
-                    </nav>*@
-
-                    <!-- Mobile Nav -->
-                    @*<nav class="navbar navbar-expand-lg navbar-light fixed-bottom d-block d-sm-none" style="background-color: rgba(235,235,235,1);">
-                        <div class="navbar-nav">
-                            <ul class="nav nav-fill text-dark">
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Student/Dashboard"><i class="fas fa-home fa-lg"></i></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Student/Library"><i class="fas fa-list-ul fa-lg"></i></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Student/Profile"><i class="fas fa-user fa-lg"></i></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-page="/Help" class="nav-link text-dark"><i class="fas fa-question fa-lg"></i></a>
-                                </li>
-                                <li class="nav-item">
-                                    <form asp-page="/Account/Logout" class="form-inline">
-                                        <button class="btn btn-link text-dark"><i class="fas fa-sign-out-alt fa-lg"></i></button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>*@
-                }
-                else
-                {
-                    <!-- Web Nav -->
-                    @*<nav class="navbar navbar-expand-lg navbar-light mb-3 d-none d-md-flex d-xl-flex">
-                        <div class="container">
-                            <a class="navbar-brand" asp-area="" asp-page="/Index">MPY</a>
-                            <div class="navbar-collapse">
-                                <ul class="navbar-nav flex-grow-1">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-page="/Index">Home</a>
-                                    </li>
-                                </ul>
-                                <a asp-page="/Help" class="nav-link text-dark">Help</a>
-                                <a class="nav-link text-dark" asp-page="/Account/Login">Sign In</a>
-                            </div>
-                        </div>
-                    </nav>*@
-                    <!-- Mobile Nav -->
-                    @*<nav class="navbar navbar-expand-lg navbar-light fixed-bottom d-block d-sm-none" style="background-color: rgba(235,235,235,1);">
-                        <div class="navbar-nav">
-                            <ul class="nav nav-fill text-dark">
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Index"><i class="fas fa-home fa-lg"></i></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-page="/Help" class="nav-link text-dark"><i class="fas fa-question fa-lg"></i></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-page="/Account/Login" class="nav-link text-dark"><i class="fas fa-sign-in-alt fa-lg"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>*@
-                }
-            </header>
 
             <main class="mx-auto pb-32">
                 <partial name="_StatusMessage" />
@@ -132,85 +19,98 @@
             </main>
 
         </div>
-
+            @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "instructor".ToLower()))
+            {
+                
+            }
+        
         <footer class="fixed bottom-0 left-0 right-0 max-w-full bg-orange-200">
+
             <div class="bg-orange-200">
+
                 <nav id="footer-nav" class="bg-orange-900 h-14 flex items-center">
                     @if (User.Identity.IsAuthenticated)
                     {
-                    <div class="flex justify-around font-button text-xs text-orange-500 mx-auto">
-                        <a class="flex-none px-2 py-2 m-2 font-button text-orange-500 cursor-pointer text-center" asp-page="/Student/Dashboard">
-                            <svg class="fill-current h-8 w-8 mx-auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13 20v-5h-2v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-7.59l-.3.3a1 1 0 11-1.4-1.42l9-9a1 1 0 011.4 0l9 9a1 1 0 01-1.4 1.42l-.3-.3V20a2 2 0 01-2 2h-3a2 2 0 01-2-2zm5 0v-9.59l-6-6-6 6V20h3v-5c0-1.1.9-2 2-2h2a2 2 0 012 2v5h3z" />
-                            </svg>
-                            home
-                        </a>
-                        <a class="flex-none px-2 py-2 m-2 font-button text-orange-500 cursor-pointer text-center" asp-page="/Student/Library">
-                            <svg class="fill-current h-8 w-8 mx-auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5c0-1.1.9-2 2-2zm14 12v-2h-2v2h2zm0 2h-2v2h2v-2zM5 15h2v-2H5v2zm0 2v2h2v-2H5zm14-8h-2v2h2V9zm0-2V5h-2v2h2zM5 9v2h2V9H5zm0-2h2V5H5v2zm4 4h6V5H9v6zm0 2v6h6v-6H9z" />
-                            </svg>
-                            classes
-                        </a>
-                        <a class="flex-none px-2 py-2 m-2 font-button text-orange-500 cursor-pointer text-center" asp-page="/Student/Profile">
-                            <svg class="fill-current h-8 w-8 mx-auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 12a5 5 0 110-10 5 5 0 010 10zm0-2a3 3 0 100-6 3 3 0 000 6zm9 11a1 1 0 01-2 0v-2a3 3 0 00-3-3H8a3 3 0 00-3 3v2a1 1 0 11-2 0v-2a5 5 0 015-5h8a5 5 0 015 5v2z" />
-                            </svg>
-                            profile
-                        </a>
-                        @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "instructor".ToLower()))
-                        {
-                            <a id="mobile_in_icon" class="flex-none px-2 py-2 m-2 font-button text-orange-500 cursor-pointer text-center">
+                        <div class="flex justify-around font-button text-xs text-orange-500 mx-auto">
+                            <a class="flex-none px-2 py-2 m-2 font-button text-orange-500 cursor-pointer text-center" asp-page="/Student/Dashboard">
                                 <svg class="fill-current h-8 w-8 mx-auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9 4.58V4c0-1.1.9-2 2-2h2a2 2 0 012 2v.58a8 8 0 011.92 1.11l.5-.29a2 2 0 012.74.73l1 1.74a2 2 0 01-.73 2.73l-.5.29c.1.74.1 1.48 0 2.22l.5.3a2 2 0 01.73 2.72l-1 1.74a2 2 0 01-2.73.73l-.5-.3A8 8 0 0115 19.43V20a2 2 0 01-2 2h-2a2 2 0 01-2-2v-.58a8 8 0 01-1.92-1.11l-.5.29a2 2 0 01-2.74-.73l-1-1.74a2 2 0 01.73-2.73l.5-.29c-.1-.74-.1-1.48 0-2.22l-.5-.3a2 2 0 01-.73-2.72l1-1.74a2 2 0 012.73-.73l.5.3A8 8 0 019 4.57v.01zM7.88 7.64l-.54.51-1.77-1.02-1 1.74 1.76 1.01-.17.73a6.02 6.02 0 000 2.78l.17.73-1.76 1.01 1 1.74 1.77-1.02.54.51a6 6 0 002.4 1.4l.72.2V20h2v-2.04l.71-.2a6 6 0 002.41-1.4l.54-.51 1.77 1.02 1-1.74-1.76-1.01.17-.73c.22-.91.22-1.87 0-2.78l-.17-.73 1.76-1.01-1-1.74-1.77 1.02-.54-.51a6 6 0 00-2.4-1.4l-.72-.2V4h-2v2.04l-.71.2a6 6 0 00-2.41 1.4zM12 16a4 4 0 110-8 4 4 0 010 8zm0-2a2 2 0 100-4 2 2 0 000 4z" />
+                                    <path d="M13 20v-5h-2v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-7.59l-.3.3a1 1 0 11-1.4-1.42l9-9a1 1 0 011.4 0l9 9a1 1 0 01-1.4 1.42l-.3-.3V20a2 2 0 01-2 2h-3a2 2 0 01-2-2zm5 0v-9.59l-6-6-6 6V20h3v-5c0-1.1.9-2 2-2h2a2 2 0 012 2v5h3z" />
                                 </svg>
-                                instructor
+                                home
                             </a>
-                        }
-                        @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "admin".ToLower()))
-                        {
-                            <a id="mobile_ad_icon" class="flex-none px-2 py-2 m-2 font-button text-orange-500 cursor-pointer text-center">
+                            <a class="flex-none px-2 py-2 m-2 font-button text-orange-500 cursor-pointer text-center" asp-page="/Student/Library">
                                 <svg class="fill-current h-8 w-8 mx-auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7 10V7a5 5 0 1110 0v3h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8c0-1.1.9-2 2-2h2zm2 0h6V7a3 3 0 00-6 0v3zm-4 2v8h14v-8H5zm7 2a1 1 0 011 1v2a1 1 0 01-2 0v-2a1 1 0 011-1z" />
+                                    <path d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5c0-1.1.9-2 2-2zm14 12v-2h-2v2h2zm0 2h-2v2h2v-2zM5 15h2v-2H5v2zm0 2v2h2v-2H5zm14-8h-2v2h2V9zm0-2V5h-2v2h2zM5 9v2h2V9H5zm0-2h2V5H5v2zm4 4h6V5H9v6zm0 2v6h6v-6H9z" />
                                 </svg>
-                                admin
+                                classes
                             </a>
-                        }
-                        <a class="flex-none px-2 py-2 m-2 font-button text-orange-500 cursor-pointer text-center w-12" asp-page="/Help">
-                            <svg class="fill-current h-8 w-8 mx-auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 22a10 10 0 110-20 10 10 0 010 20zm0-2a8 8 0 100-16 8 8 0 000 16zM10.59 8.59a1 1 0 11-1.42-1.42 4 4 0 115.66 5.66l-2.12 2.12a1 1 0 01-1.42-1.42l2.12-2.12A2 2 0 0010.6 8.6l-.01-.01zM12 18a1 1 0 110-2 1 1 0 010 2z" />
-                            </svg>
-                            help
-                        </a>
-                    </div>
-                        <div id="mobile_in_menu" class="absolute hidden right-0 text-right -mt-94 bg-orange-800 px-10 py-2 rounded-large shadow-sm font-button font-bold text-2xl text-orange-500 mr-10 sm:mr-24 md:mr-64 lg:mr-76 xl:mr-110 hd:mr-170">
-                            <ul>
-                                <li class="px-4 py-2 my-2">
-                                    <a class="font-button font-bold text-orange-500" asp-page="/Instructor/UploadAudio">Upload Audio</a>
-                                </li>
-                                <li class="px-4 py-2 my-2">
-                                    <a class="font-button font-bold text-orange-500" asp-page="/Instructor/ContentList">List Content</a>
-                                </li>
-                                <li class="px-4 py-2 my-2">
-                                    <a class="font-button font-bold text-orange-500" asp-page="/Instructor/Profile">Profile</a>
-                                </li>
-                                <li class="px-4 py-2 my-2">
-                                    <a class="font-button font-bold text-orange-500" asp-page="/Instructor/InviteStudent">Invite Students</a>
-                                </li>
-                                <li class="px-4 py-2 my-2">
-                                    <a class="font-button font-bold text-orange-500" asp-page="/Instructor/ListStudents">Current Students</a>
-                                </li>
-                            </ul>
+                            <a class="flex-none px-2 py-2 m-2 font-button text-orange-500 cursor-pointer text-center" asp-page="/Student/Profile">
+                                <svg class="fill-current h-8 w-8 mx-auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 12a5 5 0 110-10 5 5 0 010 10zm0-2a3 3 0 100-6 3 3 0 000 6zm9 11a1 1 0 01-2 0v-2a3 3 0 00-3-3H8a3 3 0 00-3 3v2a1 1 0 11-2 0v-2a5 5 0 015-5h8a5 5 0 015 5v2z" />
+                                </svg>
+                                profile
+                            </a>
+                            @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "instructor".ToLower()))
+                            {
+                            <div class="relative flex">
+                                <a id="mobile_in_icon" class="flex-none px-2 py-2 m-2 font-button text-orange-500 cursor-pointer text-center">
+                                    <svg class="fill-current h-8 w-8 mx-auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 4.58V4c0-1.1.9-2 2-2h2a2 2 0 012 2v.58a8 8 0 011.92 1.11l.5-.29a2 2 0 012.74.73l1 1.74a2 2 0 01-.73 2.73l-.5.29c.1.74.1 1.48 0 2.22l.5.3a2 2 0 01.73 2.72l-1 1.74a2 2 0 01-2.73.73l-.5-.3A8 8 0 0115 19.43V20a2 2 0 01-2 2h-2a2 2 0 01-2-2v-.58a8 8 0 01-1.92-1.11l-.5.29a2 2 0 01-2.74-.73l-1-1.74a2 2 0 01.73-2.73l.5-.29c-.1-.74-.1-1.48 0-2.22l-.5-.3a2 2 0 01-.73-2.72l1-1.74a2 2 0 012.73-.73l.5.3A8 8 0 019 4.57v.01zM7.88 7.64l-.54.51-1.77-1.02-1 1.74 1.76 1.01-.17.73a6.02 6.02 0 000 2.78l.17.73-1.76 1.01 1 1.74 1.77-1.02.54.51a6 6 0 002.4 1.4l.72.2V20h2v-2.04l.71-.2a6 6 0 002.41-1.4l.54-.51 1.77 1.02 1-1.74-1.76-1.01.17-.73c.22-.91.22-1.87 0-2.78l-.17-.73 1.76-1.01-1-1.74-1.77 1.02-.54-.51a6 6 0 00-2.4-1.4l-.72-.2V4h-2v2.04l-.71.2a6 6 0 00-2.41 1.4zM12 16a4 4 0 110-8 4 4 0 010 8zm0-2a2 2 0 100-4 2 2 0 000 4z" />
+                                    </svg>
+                                    instructor
+                                </a>
+
+                                <div id="mobile_in_menu" class="absolute hidden text-right bg-orange-800 px-10 py-2 rounded-large shadow-sm font-button font-bold text-2xl text-orange-500" style="left: -125px; bottom: 65px; z-index: 1; min-width: 300px">
+                                    <ul>
+                                        <li class="px-4 my-2">
+                                            <a class="font-button font-bold text-orange-500" asp-page="/Instructor/UploadAudio">Upload Audio</a>
+                                        </li>
+                                        <li class="px-4 my-2">
+                                            <a class="font-button font-bold text-orange-500" asp-page="/Instructor/ContentList">Manage Content</a>
+                                        </li>
+                                        <li class="px-4 my-2">
+                                            <a class="font-button font-bold text-orange-500" asp-page="/Instructor/Profile">Profile</a>
+                                        </li>
+                                        <li class="px-4 my-2">
+                                            <a class="font-button font-bold text-orange-500" asp-page="/Instructor/InviteStudent">Invite Students</a>
+                                        </li>
+                                        <li class="px-4 my-2">
+                                            <a class="font-button font-bold text-orange-500" asp-page="/Instructor/ListStudents">Current Students</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            }
+                            @if (User.HasClaim(x => x.Type == "role" && x.Value.ToLower() == "admin".ToLower()))
+                            {
+                                <div class="relative flex">
+                                    <a id="mobile_ad_icon" class="flex-none px-2 py-2 m-2 font-button text-orange-500 cursor-pointer text-center">
+                                        <svg class="fill-current h-8 w-8 mx-auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7 10V7a5 5 0 1110 0v3h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8c0-1.1.9-2 2-2h2zm2 0h6V7a3 3 0 00-6 0v3zm-4 2v8h14v-8H5zm7 2a1 1 0 011 1v2a1 1 0 01-2 0v-2a1 1 0 011-1z" />
+                                        </svg>
+                                        admin
+                                    </a>
+
+                                    <div id="mobile_ad_menu" class="absolute hidden text-right bg-orange-800 px-10 py-2 rounded-large shadow-sm font-button font-bold text-2xl text-orange-500" style="left: -185px; bottom: 65px; z-index: 1; min-width: 300px">
+                                        <ul>
+                                            <li class="px-4 my-2">
+                                                <a class="font-button font-bold text-orange-500" asp-page="/Admin/ManageProfiles">Manage Profiles</a>
+                                            </li>
+                                            <li class="px-4 my-2">
+                                                <a class="font-button font-bold text-orange-500" asp-page="/Admin/InviteInstructor">Invite Instructor</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+                            <a class="flex-none px-2 py-2 m-2 font-button text-orange-500 cursor-pointer text-center w-12" asp-page="/Help">
+                                <svg class="fill-current h-8 w-8 mx-auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 22a10 10 0 110-20 10 10 0 010 20zm0-2a8 8 0 100-16 8 8 0 000 16zM10.59 8.59a1 1 0 11-1.42-1.42 4 4 0 115.66 5.66l-2.12 2.12a1 1 0 01-1.42-1.42l2.12-2.12A2 2 0 0010.6 8.6l-.01-.01zM12 18a1 1 0 110-2 1 1 0 010 2z" />
+                                </svg>
+                                help
+                            </a>
                         </div>
-                        <div id="mobile_ad_menu" class="absolute hidden right-0 text-right -mt-48 bg-orange-800 px-10 py-2 rounded-large shadow-sm font-button font-bold text-2xl text-orange-500 mr-10 sm:mr-24 md:mr-64 lg:mr-76 xl:mr-110 hd:mr-170">
-                            <ul>
-                                <li class="px-4 py-2 my-2">
-                                    <a class="font-button font-bold text-orange-500" asp-page="/Admin/ManageProfiles">Manage Profiles</a>
-                                </li>
-                                <li class="px-4 py-2 my-2">
-                                    <a class="font-button font-bold text-orange-500" asp-page="/Admin/InviteInstructor">Invite Instructor</a>
-                                </li>
-                            </ul>
-                        </div>
+
                     }
                     else
                     {
